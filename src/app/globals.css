@@ -1,0 +1,330 @@
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap");
+@import "tailwindcss";
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --main-color: #FF7642;
+  --dark-color: #161727;
+  --gray-color: #858585;
+  --gray-light-color: #F5F5F5;
+}
+
+/* container */
+html {
+  scroll-behavior: smooth;
+}
+
+body {}
+
+.font-expo {
+  font-family: "Cairo", sans-serif;
+}
+
+.container,
+.AdminContainer {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 1024px) {
+
+  .container,
+  .AdminContainer {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .container {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    width: 1200px;
+  }
+}
+
+/* Colors */
+.bg-main {
+  background-color: var(--main-color);
+}
+
+.text-main {
+  color: var(--main-color);
+}
+
+.bg-gray-light {
+  background-color: var(--gray-light-color);
+}
+
+.bg-gray {
+  background-color: var(--gray-color);
+}
+
+.text-gray {
+  color: var(--gray-color);
+}
+
+.bg-dark {
+  background-color: var(--dark-color);
+}
+
+.text-dark {
+  color: var(--dark-color);
+}
+
+.radius {
+  border-radius: 8px;
+}
+
+.h-scroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* remove number input arrows */
+.no-spinner::-webkit-outer-spin-button,
+.no-spinner::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.no-spinner {
+  -moz-appearance: textfield;
+  /* Firefox */
+}
+
+select,
+input {
+  outline: none !important;
+}
+
+/* .range-slider-thumb {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.range-slider-thumb:hover {
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.floating-btn-shadow {
+  box-shadow: 0 4px 20px rgba(249, 115, 22, 0.3);
+}
+
+.floating-btn-shadow:hover {
+  box-shadow: 0 6px 25px rgba(249, 115, 22, 0.4);
+}
+
+.bottom-sheet-transition {
+  transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@supports (-webkit-touch-callout: none) {
+  .ios-safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+} */
+
+/* Rols */
+/* phone input */
+.PhoneInput {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  /* border: 1px solid #E5E7EB; */
+  border-radius: 0.50rem;
+  padding: 2px 0.5rem;
+  /* background-color: #ffffff; */
+  transition: border-color 0.3s ease;
+  -webkit-border-radius: 0.50rem;
+  -moz-border-radius: 0.50rem;
+  -ms-border-radius: 0.50rem;
+  -o-border-radius: 0.50rem;
+}
+
+@media (max-width: 576px) {
+  .PhoneInput {
+    padding: 0 !important;
+  }
+}
+
+.PhoneInputCountry {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0 0.5rem;
+  cursor: pointer;
+}
+
+
+.PhoneInputCountrySelectArrow {
+  display: inline-block;
+  margin-top: -0.2em;
+  width: 0.6em;
+  height: 0.6em;
+  margin-left: 0.4em;
+  border: solid #333;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  transition: transform 0.3s ease;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+}
+
+[dir="rtl"] .PhoneInputCountrySelectArrow {
+  display: inline-block;
+  margin-top: -0.2em;
+  width: 0.4rem;
+  height: 0.4rem;
+  margin-right: 0.4em;
+  border: solid #333;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  transition: transform 0.3s ease;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+}
+
+.PhoneInputCountry:hover .PhoneInputCountrySelectArrow {
+  transform: scale(1.2) rotate(45deg);
+  -webkit-transform: scale(1.2) rotate(45deg);
+  -moz-transform: scale(1.2) rotate(45deg);
+  -ms-transform: scale(1.2) rotate(45deg);
+  -o-transform: scale(1.2) rotate(45deg);
+}
+
+.PhoneInputInput {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 0.5rem;
+  font-size: 1rem;
+  color: white;
+  border-left: 1px solid #cccccc75;
+  padding-left: 0.75rem;
+}
+
+.PhoneInputInput::placeholder {
+  color: hsl(var(--muted-foreground));
+  /* Replace with your color variable */
+}
+
+.PhoneInputInput:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 1px rgba(var(--ring), 0.2);
+  /* Equivalent to ring-1 and ring-ring/20 */
+  --tw-ring-offset-width: 0px;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.PhoneInputInput:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.PhoneInput:focus-within {
+  box-shadow: 0 0 0 1px rgba(var(--ring), 0.2);
+  /* Equivalent to ring-1 and ring-ring/20 */
+  --tw-ring-offset-width: 0px;
+}
+
+.PhoneInputInput {
+  font-size: 0.875rem;
+  /* Equivalent to md:text-sm */
+}
+
+html[dir="rtl"] .PhoneInputInput {
+  border-left: none;
+  border-right: 1px solid #cccccc75;
+  padding-right: 0.75rem;
+  padding-left: 0;
+  text-align: right;
+}
+
+@media (max-width: 480px) {
+  .PhoneInputCountryIcon {
+    width: 20px;
+    height: 14px;
+  }
+}
+
+html[dir="rtl"] .PhoneInput input::placeholder {
+  text-align: right !important;
+}
+
+.PhoneInput input::placeholder {
+  font-style: normal !important;
+}
+
+
+@keyframes slideIn {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+.animate-slideIn {
+  animation: slideIn 0.2s ease-out forwards;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* Sidebar فقط */
+.sidebar-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(114, 114, 114, 0.25) transparent;
+}
+
+/* Chrome, Edge, Safari */
+.sidebar-scroll::-webkit-scrollbar {
+  width: 5px !important;
+  /* thinner */
+}
+
+.sidebar-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.25);
+  /* more transparent */
+  border-radius: 10px;
+}
+
+/* Hover (slightly visible) */
+.sidebar-scroll:hover::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+.sidebar-scroll:hover::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.4);
+}

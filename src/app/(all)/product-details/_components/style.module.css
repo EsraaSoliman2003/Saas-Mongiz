@@ -1,0 +1,13 @@
+.descH1 {
+  font-size: 1.25rem;   /* 20px */
+  font-weight: 600;
+  margin: 1rem 0 0.5rem;
+  color: #1f2937;
+}
+
+.descP {
+  font-size: 0.875rem;  /* 14px */
+  line-height: 1.6;
+  margin-bottom: 0.75rem;
+  color: #4b5563;
+}

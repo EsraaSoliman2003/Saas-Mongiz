@@ -1,0 +1,25 @@
+/* swiper builts */
+.Sponsers .swiper-pagination {
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.Sponsers .swiper-pagination .swiper-pagination-bullet {
+  width: 6px;
+  height: 6px;
+  background-color: white !important;
+  border-radius: 7px;
+  transition: 0.3s;
+  opacity: 1;
+}
+
+.Sponsers .swiper-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active {
+  width: 42px;
+  background-color: white !important;
+}
+
+/* swiper builts */

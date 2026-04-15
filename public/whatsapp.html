@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Messenger | Standalone</title>
+    <meta name="description" content="Send direct WhatsApp messages via Evolution API or Webhooks.">
+    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --primary: #25D366;
+            --primary-dark: #128C7E;
+            --bg: #0b141a;
+            --surface: #111b21;
+            --surface-light: #202c33;
+            --border: rgba(255, 255, 255, 0.1);
+            --text: #e9edef;
+            --text-muted: #8696a0;
+            --error: #ef4444;
+            --success: #25D366;
+            --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        header {
+            margin-bottom: 2.5rem;
+            text-align: center;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #25D366 0%, #34b7f1 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        @media (max-width: 992px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: var(--card-shadow);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            transition: var(--transition);
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .card:hover {
+            border-color: rgba(37, 211, 102, 0.3);
+            transform: translateY(-4px);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        input[type="text"],
+        input[type="password"],
+        textarea,
+        select {
+            width: 100%;
+            background: var(--surface-light);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 0.8rem 1rem;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(37, 211, 102, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .mode-selector {
+            display: flex;
+            gap: 1rem;
+            background: var(--bg);
+            padding: 0.4rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+
+        .mode-option {
+            flex: 1;
+            text-align: center;
+            padding: 0.6rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition);
+            user-select: none;
+        }
+
+        .mode-option.active {
+            background: var(--primary);
+            color: #000;
+        }
+
+        .mode-option:not(.active):hover {
+            background: var(--surface-light);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #000;
+            width: 100%;
+            font-size: 1.1rem;
+        }
+
+        .btn-primary:hover {
+            background: #20bd5a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--surface-light);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: #2a3942;
+        }
+
+        /* Emoji Picker */
+        .emoji-picker-container {
+            position: relative;
+        }
+
+        .emoji-trigger {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            cursor: pointer;
+            font-size: 1.4rem;
+            opacity: 0.6;
+            transition: var(--transition);
+        }
+
+        .emoji-trigger:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .emoji-grid {
+            position: absolute;
+            bottom: 50px;
+            right: 0;
+            background: var(--surface-light);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 12px;
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 8px;
+            width: 250px;
+            max-height: 200px;
+            overflow-y: auto;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            z-index: 1000;
+            display: none;
+        }
+
+        .emoji-item {
+            font-size: 1.5rem;
+            cursor: pointer;
+            text-align: center;
+            padding: 6px;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .emoji-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Toast */
+        #toast-container {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 9999;
+        }
+
+        .toast {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--primary);
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            animation: slideInRight 0.4s ease-out;
+        }
+
+        .toast.error {
+            border-left-color: var(--error);
+        }
+
+        .toast.success {
+            border-left-color: var(--success);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--surface-light);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--border);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="toast-container"></div>
+
+    <div class="container">
+        <header>
+            <h1><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" width="40"
+                    height="40"> WhatsApp Message</h1>
+            <p>Send secure direct messages via Evolution API or custom Webhook</p>
+        </header>
+
+        <div class="grid">
+            <!-- Message Form Section -->
+            <section class="card">
+                <div class="card-title">✨ Create New Message</div>
+
+                <div class="mode-selector">
+                    <div class="mode-option active" data-mode="direct">Direct API</div>
+                    <div class="mode-option" data-mode="webhook">Via Webhook</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="waPhone">Recipient Phone Number</label>
+                    <input type="text" id="waPhone" placeholder="e.g. 971547720546"
+                        title="Include country code without + or 00">
+                    <small style="color:var(--text-muted); font-size:0.75rem; display:block; margin-top: 0.4rem;">
+                        Format: CountryCode + Number (e.g., 971501234567)
+                    </small>
+                </div>
+
+                <div class="form-group emoji-picker-container">
+                    <label for="waMessage">Message Content</label>
+                    <textarea id="waMessage" placeholder="Type your message here..."></textarea>
+                    <div class="emoji-trigger" id="emojiTrigger">😊</div>
+                    <div class="emoji-grid" id="emojiGrid">
+                        <!-- Emojis injected by JS -->
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" id="sendBtn">
+                    <span>🚀 Send WhatsApp Message</span>
+                </button>
+            </section>
+
+            <!-- Configuration Section -->
+            <section class="card">
+                <div class="card-title">⚙️ Delivery Settings</div>
+
+                <div id="directSettings">
+                    <div class="form-group">
+                        <label for="waConfigUrl">Direct API Base URL</label>
+                        <input type="text" id="waConfigUrl" placeholder="https://evolution.amrismailai.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="waConfigKey">API Key (apikey)</label>
+                        <div style="position: relative;">
+                            <input type="password" id="waConfigKey" placeholder="Your Evolution API Key">
+                            <span id="toggleKey"
+                                style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); cursor: pointer; opacity: 0.6;">👁️</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="waConfigInstance">Instance Name</label>
+                        <input type="text" id="waConfigInstance" placeholder="e.g. n88n">
+                    </div>
+                </div>
+
+                <div id="webhookSettings" style="display: none;">
+                    <div class="form-group">
+                        <label for="waWebhookUrl">Webhook URL</label>
+                        <input type="text" id="waWebhookUrl" placeholder="https://n8n.example.com/webhook/whatsapp">
+                        <small style="color:var(--text-muted); font-size:0.75rem; display:block; margin-top: 0.4rem;">
+                            Data sent: { "number": "...", "text": "..." }
+                        </small>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                    <button class="btn btn-secondary" style="flex:1" id="testConnBtn">
+                        <span>🧪 Test Connection</span>
+                    </button>
+                    <button class="btn btn-secondary" style="flex:1; background: var(--surface-light);"
+                        id="saveSettingsBtn">
+                        <span>💾 Save Config</span>
+                    </button>
+                </div>
+
+                <div
+                    style="margin-top: 1.5rem; padding: 1rem; border-radius: 12px; background: rgba(37, 211, 102, 0.05); border: 1px solid var(--border); font-size: 0.85rem; color: var(--text-muted);">
+                    <p><strong>Note:</strong> Settings are saved locally to your browser's storage and are not shared
+                        with any server.</p>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        'use strict';
+
+        const $ = id => document.getElementById(id);
+
+        const ConfigState = {
+            key: 'whatsapp_config',
+            data: {
+                mode: 'direct',
+                directUrl: 'https://evolution.example.com/message/sendText/instance',
+                directKey: 'your_api_key',
+                directInstance: 'instance_name',
+                webhookUrl: ''
+            },
+            load() {
+                const stored = localStorage.getItem(this.key);
+                if (stored) {
+                    try {
+                        this.data = { ...this.data, ...JSON.parse(stored) };
+                    } catch (e) {
+                        console.error('Failed to parse stored config', e);
+                    }
+                }
+            },
+            save() {
+                localStorage.setItem(this.key, JSON.stringify(this.data));
+            }
+        };
+
+        const Toast = {
+            show(message, type = 'info', duration = 3000) {
+                const container = $('toast-container');
+                const toast = document.createElement('div');
+                toast.className = `toast ${type}`;
+                const icons = { success: '✅', error: '❌', info: 'ℹ️', warning: '⚠️' };
+                toast.innerHTML = `<span>${icons[type] || icons.info}</span><span>${message}</span>`;
+                container.appendChild(toast);
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    toast.style.transform = 'translateX(20px)';
+                    setTimeout(() => toast.remove(), 400);
+                }, duration);
+            }
+        };
+
+        const Emojis = ['😊', '😂', '❤️', '👍', '🔥', '🚀', '📱', '✅', '❌', '⚠️', '👋', '🙌', '✨', '⚡', '💡', '🛠️', '📅', '🎓', '🔔', '📈', '🔗', '🤝', '💻', '💰', '🌍', '🎁', '🎉', '💬', '📞', '📍', '💯', '🌈', '🌟', '🏆', '💎', '🎨', '🎬', '🎧', '👾', '🤖', '👻', '👽', '🍔', '🍕', '☕', '🍺', '🏀', '⚽', '🚗', '✈️', '🏠'];
+
+        function initEmojiPicker() {
+            const trigger = $('emojiTrigger');
+            const grid = $('emojiGrid');
+            const textarea = $('waMessage');
+            grid.innerHTML = Emojis.map(e => `<div class="emoji-item">${e}</div>`).join('');
+            trigger.addEventListener('click', (e) => {
+                e.stopPropagation();
+                grid.style.display = grid.style.display === 'grid' ? 'none' : 'grid';
+            });
+            grid.querySelectorAll('.emoji-item').forEach(el => {
+                el.addEventListener('click', () => {
+                    const emoji = el.textContent;
+                    const start = textarea.selectionStart;
+                    const end = textarea.selectionEnd;
+                    textarea.value = textarea.value.substring(0, start) + emoji + textarea.value.substring(end);
+                    textarea.focus();
+                    const pos = start + emoji.length;
+                    textarea.setSelectionRange(pos, pos);
+                });
+            });
+            document.addEventListener('click', () => { grid.style.display = 'none'; });
+        }
+
+        function initModes() {
+            const options = document.querySelectorAll('.mode-option');
+            const directSettings = $('directSettings');
+            const webhookSettings = $('webhookSettings');
+            options.forEach(opt => {
+                opt.addEventListener('click', () => {
+                    const mode = opt.dataset.mode;
+                    ConfigState.data.mode = mode;
+                    options.forEach(o => o.classList.toggle('active', o.dataset.mode === mode));
+                    directSettings.style.display = mode === 'direct' ? 'block' : 'none';
+                    webhookSettings.style.display = mode === 'webhook' ? 'block' : 'none';
+                });
+            });
+            const currentMode = ConfigState.data.mode;
+            options.forEach(o => o.classList.toggle('active', o.dataset.mode === currentMode));
+            directSettings.style.display = currentMode === 'direct' ? 'block' : 'none';
+            webhookSettings.style.display = currentMode === 'webhook' ? 'block' : 'none';
+        }
+
+        async function handleSend() {
+            const btn = $('sendBtn');
+            const phone = $('waPhone').value.trim();
+            const message = $('waMessage').value.trim();
+            const mode = ConfigState.data.mode;
+            if (!phone) return Toast.show('Recipient phone number is required', 'error');
+            if (!message) return Toast.show('Message content is required', 'error');
+            btn.disabled = true;
+            const originalContent = btn.innerHTML;
+            btn.innerHTML = '<span>⏳ Processing...</span>';
+            try {
+                let response;
+                if (mode === 'direct') {
+                    let baseUrl = $('waConfigUrl').value.trim();
+                    const key = $('waConfigKey').value.trim();
+                    const inst = $('waConfigInstance').value.trim();
+
+                    if (!baseUrl || !key || !inst) throw new Error('API Base URL, Key, and Instance Name are required');
+
+                    // Auto-fix if user pasted full path
+                    baseUrl = baseUrl.split('/message/')[0].split('/instance/')[0].replace(/\/$/, '');
+                    const fullUrl = `${baseUrl}/message/sendText/${inst}`;
+
+                    response = await fetch(fullUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', 'apikey': key },
+                        body: JSON.stringify({ number: phone, text: message, linkPreview: true })
+                    });
+                } else {
+                    const url = $('waWebhookUrl').value.trim();
+                    if (!url) throw new Error('Webhook URL is required');
+                    response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ number: phone, text: message })
+                    });
+                }
+                if (response.ok) {
+                    Toast.show('Message sent successfully!', 'success');
+                    $('waMessage').value = '';
+                } else {
+                    const errData = await response.json().catch(() => ({}));
+                    throw new Error(errData.message || response.statusText || 'Delivery Failed');
+                }
+            } catch (err) { Toast.show(err.message, 'error'); } finally {
+                btn.disabled = false;
+                btn.innerHTML = originalContent;
+            }
+        }
+
+        async function handleTest() {
+            const btn = $('testConnBtn');
+            const urlRaw = $('waConfigUrl').value.trim();
+            const key = $('waConfigKey').value.trim();
+            const inst = $('waConfigInstance').value.trim();
+            if (ConfigState.data.mode === 'webhook') return Toast.show('Only for Direct API mode', 'warning');
+            if (!urlRaw || !key || !inst) return Toast.show('Base URL, Key, and Instance are required for test', 'error');
+
+            const baseUrl = urlRaw.split('/message/')[0].split('/instance/')[0].replace(/\/$/, '');
+            btn.disabled = true;
+            const originalContent = btn.innerHTML;
+            btn.innerHTML = '<span>⏳ Checking...</span>';
+            try {
+                const res = await fetch(`${baseUrl}/instance/connectionState/${inst}`, {
+                    method: 'GET',
+                    headers: { 'apikey': key }
+                });
+                const data = await res.json();
+                if (res.ok && data.instance?.state === 'open') {
+                    Toast.show(`API connected! Instance "${inst}" is open.`, 'success');
+                } else {
+                    const status = data.instance?.state || data.message || 'offline';
+                    Toast.show(`Status: ${status}`, 'warning');
+                }
+            } catch (err) { Toast.show('Test failed: ' + err.message, 'error'); } finally {
+                btn.disabled = false; btn.innerHTML = originalContent;
+            }
+        }
+
+        function handleSave() {
+            ConfigState.data = {
+                mode: ConfigState.data.mode,
+                directUrl: $('waConfigUrl').value.trim(),
+                directKey: $('waConfigKey').value.trim(),
+                directInstance: $('waConfigInstance').value.trim(),
+                webhookUrl: $('waWebhookUrl').value.trim()
+            };
+            ConfigState.save();
+            Toast.show('Saved locally!', 'success');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            ConfigState.load();
+            $('waConfigUrl').value = ConfigState.data.directUrl;
+            $('waConfigKey').value = ConfigState.data.directKey;
+            $('waConfigInstance').value = ConfigState.data.directInstance;
+            $('waWebhookUrl').value = ConfigState.data.webhookUrl;
+            initEmojiPicker();
+            initModes();
+            $('toggleKey').addEventListener('click', () => {
+                const input = $('waConfigKey');
+                const isPass = input.type === 'password';
+                input.type = isPass ? 'text' : 'password';
+                $('toggleKey').textContent = isPass ? '🙈' : '👁️';
+            });
+            $('sendBtn').addEventListener('click', handleSend);
+            $('testConnBtn').addEventListener('click', handleTest);
+            $('saveSettingsBtn').addEventListener('click', handleSave);
+            Toast.show('WhatsApp Messenger Ready', 'info');
+        });
+    </script>
+</body>
+
+</html>

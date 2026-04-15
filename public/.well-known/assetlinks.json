@@ -1,0 +1,13 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.imothmr.soukway",
+      "sha256_cert_fingerprints": [
+        "49:63:AB:DD:9D:98:B3:75:CB:84:19:B6:BD:76:6B:C4:C5:81:AB:08:40:FA:53:25:5E:DC:34:42:36:1F:C0:00",
+        "6B:45:3D:40:C0:66:82:C2:F9:AE:20:31:11:F3:DF:9B:2C:5B:E3:7D:C6:C6:20:21:5C:F7:22:09:DD:81:DD:8F"
+      ]
+    }
+  }
+]

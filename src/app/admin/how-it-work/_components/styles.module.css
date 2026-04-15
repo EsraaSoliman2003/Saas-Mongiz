@@ -1,0 +1,9 @@
+.root .img:first-child {
+  align-self: center;
+}
+.root .img:nth-child(2) {
+  align-self: end;
+}
+.root .img:last-child {
+  align-self: center;
+}
