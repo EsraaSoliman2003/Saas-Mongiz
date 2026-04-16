@@ -32,16 +32,21 @@ export default function SidebarHeader() {
         {
           loading ? (
             <div className="w-52 h-20 bg-gray-700 animate-pulse rounded"></div>
-          ) : (
-            <Image
-              src={logo?.logoDarkMode || "/default-logo.png"}
-              alt="Mongiz"
-              width={200}
-              height={100}
+          ) : logo?.logoDarkMode
+            ? (
+              <Image
+                src={logo?.logoDarkMode}
+                alt="Mongiz"
+                width={200}
+                height={100}
               className="w-52 md:w-45 h-auto object-contain"
-              priority
-            />
-          )
+                priority
+              />
+            )
+            : (
+                <div>
+                </div>
+            )
         }
 
       </Link>

@@ -26,15 +26,21 @@ export default function SidebarToggle() {
         {
           loading ? (
             <div className="w-52 h-20 bg-gray-700 animate-pulse rounded"></div>
-          ) : (
-            <SafeImage
-              src={logo?.logoDarkMode || "/default-logo.png"}
-              alt="Mongiz"
-              width={100}
-              height={40}
-              className="object-contain h-8 w-auto"
-            />
-          )
+          ) : logo?.logoDarkMode
+            ? (
+              <SafeImage
+                src={logo?.logoDarkMode}
+                alt="Mongiz"
+                width={100}
+                height={40}
+                className="object-contain h-8 w-auto"
+              />
+            ) : (
+              (
+                <div className="w-10 h-5 relative">
+                </div>
+              )
+            )
         }
       </Link>
 

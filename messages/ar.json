@@ -956,5 +956,8 @@
   "For dark mode / dark backgrounds": "يُستخدم في الوضع الداكن أو الخلفيات الداكنة",
   "For light mode / white backgrounds": "يُستخدم في الوضع الفاتح أو الخلفيات البيضاء",
   "Brand Colors": "ألوان العلامة التجارية",
-  "Custom Subdomain": "الدومين المخصص"
+  "Custom Subdomain": "الدومين المخصص",
+  "logo": "الشعار",
+  "colors": "الألوان",
+  "subDomain": "الدومين الفرعي"
 }

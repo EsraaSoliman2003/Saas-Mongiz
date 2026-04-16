@@ -1,3 +1,45 @@
+"use client";
+
+import { useState } from "react";
+import SectionHeader from "../_components/SectionHeader";
+import SettingsTabs from "./_components/SettingsTabs";
+import { useTranslations } from "next-intl";
+import LogoCard from "./_components/LogoCard";
+import ColorCard from "./_components/ColorCard";
+import SubDomainCard from "./_components/SubDomainCard";
+
+export default function SettingsPage() {
+  const t = useTranslations();
+  const [activeTab, setActiveTab] = useState("logo");
+
+  const renderContent = () => {
+    switch (activeTab) {
+      case "logo":
+        return <LogoCard />;
+      case "colors":
+        return <ColorCard />;
+      case "subDomain":
+        return <SubDomainCard />;
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <div className="p-4 md:p-8 space-y-6">
+      <SectionHeader
+        title={t("settingsTitle")}
+        subtitle={t("settingsSubtitle")}
+        buttonText={t("saveChanges")}
+      />
+
+      <SettingsTabs activeTab={activeTab} setActiveTab={setActiveTab} />
+
+      {renderContent()}
+    </div>
+  );
+}
+
 // "use client";
 
 // import { useState } from "react";
@@ -52,25 +94,25 @@
 //   );
 // }
 
-import { useTranslations } from 'next-intl';
-import React from 'react';
-import SectionHeader from '../_components/SectionHeader';
-import LogoCard from './_components/LogoCard';
-import ColorCard from './_components/ColorCard';
-import SubDomainCard from './_components/SubDomainCard';
+// import { useTranslations } from 'next-intl';
+// import React from 'react';
+// import SectionHeader from '../_components/SectionHeader';
+// import LogoCard from './_components/LogoCard';
+// import ColorCard from './_components/ColorCard';
+// import SubDomainCard from './_components/SubDomainCard';
 
-export default function Page() {
-  const t = useTranslations();
+// export default function Page() {
+//   const t = useTranslations();
 
-  return (
-    <div className="p-4 md:p-8 space-y-6">
-      <SectionHeader title={t("settingsTitle")} subtitle={t("settingsSubtitle")} />
+//   return (
+//     <div className="p-4 md:p-8 space-y-6">
+//       <SectionHeader title={t("settingsTitle")} subtitle={t("settingsSubtitle")} />
 
-      <div className="space-y-6">
-        <LogoCard />
-        <ColorCard />
-        <SubDomainCard />
-      </div>
-    </div>
-  );
-}
+//       <div className="space-y-6">
+//         <LogoCard />
+//         <ColorCard />
+//         <SubDomainCard />
+//       </div>
+//     </div>
+//   );
+// }
