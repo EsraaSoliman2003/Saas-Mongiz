@@ -7,8 +7,8 @@ import { useAppDispatch, useAppSelector } from "@/rtk/hooks";
 import { fetchReviewsByProduct, deleteReview, UserProductReview } from "@/rtk/slices/userProductReviewSlice/userProductReviewSlice";
 import { Star, Trash2 } from "lucide-react";
 import { toast } from "sonner";
-import SectionHeader from "@/app/admin/_components/SectionHeader";
 import NoData from "@/components/noData/NoData";
+import SectionHeader from "../../../_components/SectionHeader";
 
 /* =========================
    Skeleton
