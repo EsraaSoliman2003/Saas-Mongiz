@@ -66,7 +66,7 @@ export default function Page() {
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-20">
       <div className="w-full max-w-md bg-white/10 backdrop-blur-xl rounded-2xl px-8 py-10 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
-        <Link href="/" className="flex justify-center mb-6">
+        <Link href={`/${useAppSelector((s) => s.settings.data?.id)}`} className="flex justify-center mb-6">
           {
             logoLoading ? (
               <div className="w-52 h-20 bg-gray-700 animate-pulse rounded"></div>
@@ -465,12 +465,12 @@ export default function Page() {
         {/* Footer links (unchanged) */}
         <p className="text-center text-sm text-white/70 mb-2">
           {t("HaveAccount")}{" "}
-          <Link href="/login" className="text-(--main-color) hover:underline">
+          <Link href={`/${useAppSelector((s) => s.settings.data?.id)}/login`} className="text-(--main-color) hover:underline">
             {t("LoginNow")}
           </Link>
         </p>
 
-        <Link href={"/sign-up-with-google"} className="w-full h-11 rounded-lg bg-white text-gray-800 flex items-center justify-center gap-2 font-medium cursor-pointer transition-all duration-150 hover:bg-gray-100 hover:shadow-md active:scale-[0.97]">
+        <Link href={`/${useAppSelector((s) => s.settings.data?.id)}/sign-up-with-google`} className="w-full h-11 rounded-lg bg-white text-gray-800 flex items-center justify-center gap-2 font-medium cursor-pointer transition-all duration-150 hover:bg-gray-100 hover:shadow-md active:scale-[0.97]">
           <Image src={Google} alt="Google" width={28} height={28} /> {t("LoginWithGoogle")}
         </Link>
       </div>

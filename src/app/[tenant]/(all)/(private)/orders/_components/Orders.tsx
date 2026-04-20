@@ -82,7 +82,7 @@ export default function Orders() {
     }, [historyItems, statusFilter]);
 
     const handleOrderClick = (orderId: number) => {
-        router.push(`/order-details?id=${orderId}`);
+        router.push(`/${useAppSelector((s) => s.settings.data?.id)}/order-details?id=${orderId}`);
     };
 
     const handleCancelOrder = async (e: React.MouseEvent, orderId: number) => {

@@ -1,6 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
+import { useAppSelector } from "@/rtk/hooks";
 
 export default function RootLayout({
   children,
@@ -12,7 +13,7 @@ export default function RootLayout({
   const { token } = useAuth();
 
   if (!token) {
-    router.replace("/login");
+    router.replace(`/${useAppSelector((s) => s.settings.data?.id)}/login`);
     return;
   }
 

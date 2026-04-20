@@ -26,7 +26,7 @@ export default function Sidebar() {
   const open = useAppSelector((state) => state.menu.value);
 
   const changeLanguage = (nextLang: "ar" | "en" | "zh") => {
-    setCookie("NEXT_LOCALE", nextLang, { path: "/" });
+    setCookie("NEXT_LOCALE", nextLang, { path: `/${useAppSelector((s) => s.settings.data?.id)}` });
     window.location.reload();
   };
 

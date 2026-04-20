@@ -13,7 +13,7 @@ const PromoBannersSection = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {[0, 1].map((index) => (
           <Link
-            href={data[0]?.links?.[index] || "/"}
+            href={data[0]?.links?.[index] || `/${useAppSelector((s) => s.settings.data?.id)}`} // Fallback to tenant home if link is missing
             key={index}
             className="group relative overflow-hidden rounded-xl h-[220px] flex items-center"
           >

@@ -29,7 +29,7 @@ export default function Page() {
     return (
         <div className="min-h-screen flex items-center justify-center px-4 py-20">
             <div className="w-full max-w-md bg-white/10 backdrop-blur-xl rounded-2xl px-8 py-10 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
-                <Link href="/" className="flex justify-center mb-6">
+                <Link href={`/${useAppSelector((s) => s.settings.data?.id)}`} className="flex justify-center mb-6">
                     {
                         loading ? (
                             <div className="w-52 h-20 bg-gray-700 animate-pulse rounded"></div>

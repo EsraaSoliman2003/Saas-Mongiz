@@ -60,7 +60,7 @@ const MobileNavbar = ({ locale }: { locale: string }) => {
                     </button>
 
                     {/* Logo */}
-                    <Link href={"/"}>
+                    <Link href={`/${useAppSelector((s) => s.settings.data?.id)}`}>
 
 
                         {loading ? (
@@ -84,7 +84,7 @@ const MobileNavbar = ({ locale }: { locale: string }) => {
                                 if (token) {
                                     setMenuOpen((prev) => !prev)
                                 } else {
-                                    router.push("/login")
+                                    router.push(`/${useAppSelector((s) => s.settings.data?.id)}/login`);
                                 }
                             }}
                             className={`p-2 rounded-full hover:bg-white/10 transition cursor-pointer ${t("dir") === "rtl" ? "mr-2" : "ml-2"}`}
@@ -98,7 +98,7 @@ const MobileNavbar = ({ locale }: { locale: string }) => {
                             <div className={`absolute ${t("dir") === "rtl" ? "left-0" : "right-0"} top-9 w-44 bg-white text-gray-800 rounded-xl shadow-xl border border-gray-100 overflow-hidden z-99`}>
                                 {/* Wishlist */}
                                 <Link
-                                    href="/favourite"
+                                    href={`/${useAppSelector((s) => s.settings.data?.id)}/favourite`}
                                     onClick={() => setMenuOpen(false)}
                                     className="flex items-center gap-2 px-4 py-3 text-sm hover:bg-gray-100 transition"
                                 >
@@ -108,7 +108,7 @@ const MobileNavbar = ({ locale }: { locale: string }) => {
                                 {
                                     rolesArray.includes("SELLER") && (
                                         <Link
-                                            href="/seller"
+                                            href={`/${useAppSelector((s) => s.settings.data?.id)}/seller`}
                                             onClick={() => setMenuOpen(false)}
                                             className="flex items-center gap-2 px-4 py-3 text-sm hover:bg-gray-100 transition"
                                         >
@@ -120,7 +120,7 @@ const MobileNavbar = ({ locale }: { locale: string }) => {
                                 {
                                     rolesArray.includes("ADMIN") && (
                                         <Link
-                                            href="/admin"
+                                            href={`/${useAppSelector((s) => s.settings.data?.id)}/admin`}
                                             onClick={() => setMenuOpen(false)}
                                             className="flex items-center gap-2 px-4 py-3 text-sm hover:bg-gray-100 transition"
                                         >
@@ -131,7 +131,7 @@ const MobileNavbar = ({ locale }: { locale: string }) => {
                                 }
                                 {/* Profile */}
                                 <Link
-                                    href="/profile"
+                                    href={`/${useAppSelector((s) => s.settings.data?.id)}/profile`}
                                     onClick={() => setMenuOpen(false)}
                                     className="flex items-center gap-2 px-4 py-3 text-sm hover:bg-gray-100 transition"
                                 >
@@ -141,7 +141,7 @@ const MobileNavbar = ({ locale }: { locale: string }) => {
 
                                 {/* Orders */}
                                 <Link
-                                    href="/orders"
+                                    href={`/${useAppSelector((s) => s.settings.data?.id)}/orders`}
                                     onClick={() => setMenuOpen(false)}
                                     className="flex items-center gap-2 px-4 py-3 text-sm hover:bg-gray-100 transition"
                                 >
@@ -165,7 +165,7 @@ const MobileNavbar = ({ locale }: { locale: string }) => {
 
                         {/* Cart */}
                         <Link
-                            href="/cart"
+                            href={`/${useAppSelector((s) => s.settings.data?.id)}/cart`}
                             onClick={() => setSidebarOpen(false)}
                             className="relative p-2 pr-2 rounded-full hover:bg-white/10 transition"
                             aria-label="Cart"

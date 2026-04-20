@@ -25,7 +25,7 @@ const CategoryGrid = () => {
         <SectionHeader
           title={t("Categories")}
           buttonText={t("addNew")}
-          link="/admin/categories/create"
+          link={`/${useAppSelector((s) => s.settings.data?.id)}/admin/categories/create`}
           subtitle={t("Manage your categories here")} // <-- your subtitle
         />
         <CategorySkeleton />
@@ -38,7 +38,7 @@ const CategoryGrid = () => {
       <SectionHeader
         title={t("Categories")}
         buttonText={t("addNew")}
-        link="/admin/categories/create"
+        link={`/${useAppSelector((s) => s.settings.data?.id)}/admin/categories/create`}
         subtitle={t("Manage your categories here")} // <-- your subtitle
       />
 

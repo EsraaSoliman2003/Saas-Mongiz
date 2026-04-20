@@ -59,7 +59,7 @@ const CategoriesSection = () => {
         <h2 className="text-lg font-bold">{t("ShopbyCategory")}</h2>
 
         <div className="flex items-center gap-3">
-          <Link href={"/products"}
+          <Link href={`/${useAppSelector((s) => s.settings.data?.id)}/products`}
             className="text-sm text-main px-2 py-1 rounded-md transition-all duration-200
                        hover:bg-(--main-color)/10 hover:text-(--main-color) active:scale-95"
           >

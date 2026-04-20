@@ -1,5 +1,6 @@
 "use client";
 
+import { useAppSelector } from "@/rtk/hooks";
 import { CheckCircle, ShoppingBag } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
@@ -55,7 +56,7 @@ export default function AddToCartPopup({ open, onClose }: Props) {
                 <div className="flex flex-col gap-3">
                     {/* Buy Now */}
                     <button
-                        onClick={() => router.push("/cart")}
+                        onClick={() => router.push(`/${useAppSelector((s) => s.settings.data?.id)}/cart`)}
                         className="w-full py-3 rounded-lg bg-main text-white font-medium hover:bg-(--main-color) transition flex items-center justify-center gap-2"
                     >
                         <ShoppingBag size={18} />

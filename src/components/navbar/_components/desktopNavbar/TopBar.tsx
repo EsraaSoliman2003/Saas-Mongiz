@@ -1,4 +1,6 @@
+"use client";
 import { facebook, linked, twitter, Mail } from "@/assets";
+import { useAppSelector } from "@/rtk/hooks";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,10 +12,10 @@ const TopBar = () => {
     <div className="border-b border-white/10 bg-dark">
       <div className="flex justify-between items-center py-2 text-sm text-white">
         <div className="flex items-center gap-6">
-          <Link href="/faq" className="hover:text-(--main-color) duration-100">
+          <Link href={`/${useAppSelector((s) => s.settings.data?.id)}/faq`} className="hover:text-(--main-color) duration-100">
             {t("FAQ")}
           </Link>
-          <Link href="/contact" className="hover:text-(--main-color) duration-100">
+          <Link href={`/${useAppSelector((s) => s.settings.data?.id)}/contact`} className="hover:text-(--main-color) duration-100">
             {t("Contact")}
           </Link>
         </div>

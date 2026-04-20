@@ -3,7 +3,7 @@
 import React from "react";
 import { Edit, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useAppDispatch } from "@/rtk/hooks";
+import { useAppDispatch, useAppSelector } from "@/rtk/hooks";
 import { deleteSlider } from "@/rtk/slices/slider/sliderSlice";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
@@ -24,7 +24,7 @@ const SliderCard: React.FC<SliderCardProps> = ({ slider }) => {
     const dispatch = useAppDispatch();
 
     const handleEdit = () => {
-        router.push(`/admin/slider/edit/${slider.id}`);
+        router.push(`/${useAppSelector((s) => s.settings.data?.id)}/admin/slider/edit/${slider.id}`);
     };
 
     const handleDelete = async () => {
@@ -80,7 +80,7 @@ const SliderCard: React.FC<SliderCardProps> = ({ slider }) => {
                     {/* Edit & Delete Buttons */}
                     <div className="absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                         <Link
-                            href={`/admin/slider/edit?id=${slider.id}`}
+                            href={`/${useAppSelector((s) => s.settings.data?.id)}/admin/slider/edit?id=${slider.id}`}
                             className="bg-white p-1.5 rounded-full shadow hover:bg-blue-500 hover:text-white transition-colors"
                         >
                             <Edit size={16} />

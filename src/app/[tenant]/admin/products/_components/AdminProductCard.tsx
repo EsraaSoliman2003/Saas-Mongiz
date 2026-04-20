@@ -105,7 +105,7 @@ const ProductCard: React.FC<Props> = ({
         <div className="flex items-center gap-6">
           {/* Edit */}
           <Link
-            href={`/admin/products/addproduct?id=${id}`}
+            href={`/${useAppSelector((s) => s.settings.data?.id)}/admin/products/addproduct?id=${id}`}
             className="relative w-5 h-5 block"
             aria-label={t("edit")}
           >

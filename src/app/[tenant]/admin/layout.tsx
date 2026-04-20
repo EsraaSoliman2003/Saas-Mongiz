@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import { useAuth } from "@/context/AuthContext";
 import { getCookie } from "cookies-next";
+import { useAppSelector } from "@/rtk/hooks";
 
 export default function ProtectedAdminLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -13,7 +14,7 @@ export default function ProtectedAdminLayout({ children }: { children: React.Rea
 
   useEffect(() => {
     if (!token) {
-      router.replace("/login");
+      router.replace(`/${useAppSelector((s) => s.settings.data?.id)}/login`);
       return;
     }
 
@@ -21,7 +22,7 @@ export default function ProtectedAdminLayout({ children }: { children: React.Rea
     const roles = rolesCookie ? JSON.parse(rolesCookie) : [];
 
     if (!roles.includes("ADMIN")) {
-      router.replace("/");
+      router.replace(`/${useAppSelector((s) => s.settings.data?.id)}`);
       return;
     }
 

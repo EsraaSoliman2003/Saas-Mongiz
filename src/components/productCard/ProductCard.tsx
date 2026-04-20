@@ -25,13 +25,13 @@ export default function ProductCard({ product }: ProductCardProps) {
     if (token) {
       dispatch(toggleUserFavourite(product.id));
     } else {
-      router.push("/login")
+      router.push(`/${useAppSelector((s) => s.settings.data?.id)}/login`);
     }
   };
 
   return (
     <Link
-      href={`/product-details/${product.id}`}
+      href={`/${useAppSelector((s) => s.settings.data?.id)}/product-details/${product.id}`}
       className="group block w-full bg-white rounded-xl border border-gray-100 transition-all duration-300 ease-out cursor-pointer hover:shadow-lg active:scale-[0.97]"
     >
       <div className="relative flex items-center justify-center h-62 overflow-hidden rounded-t-xl">

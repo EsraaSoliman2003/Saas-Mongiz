@@ -6,6 +6,7 @@ import { BsLightningChargeFill } from "react-icons/bs";
 import { SiWhatsapp } from "react-icons/si"; // WhatsApp icon
 import { useTranslations } from "next-intl";
 import Link from "next/link";
+import { useAppSelector } from "@/rtk/hooks";
 
 type QuickActionCardProps = {
     icon: React.ReactNode;
@@ -45,25 +46,25 @@ export default function QuickActions() {
                 {/* <QuickActionCard
                     icon={<FiBox size={22} />}
                     label={t("products")}
-                    href="/seller/products"
+                    href={`/${useAppSelector((s) => s.settings.data?.id)}/seller/products`}
                 /> */}
 
                 <QuickActionCard
                     icon={<BiCategory size={22} />}
                     label={t("categories")}
-                    href="/admin/categories"
+                    href={`/${useAppSelector((s) => s.settings.data?.id)}/admin/categories`}
                 />
 
                 <QuickActionCard
                     icon={<FiUsers size={22} />}
                     label={t("customers")}
-                    href="/admin/customers"
+                    href={`/${useAppSelector((s) => s.settings.data?.id)}/admin/customers`}
                 />
 
                 <QuickActionCard
                     icon={<FiShoppingCart size={22} />}
                     label={t("orders")}
-                    href="/admin/orders"
+                    href={`/${useAppSelector((s) => s.settings.data?.id)}/admin/orders`}
                 />
 
                 <QuickActionCard

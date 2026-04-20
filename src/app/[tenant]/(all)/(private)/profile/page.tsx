@@ -5,6 +5,7 @@ import { User, Settings, Gift, Heart, MapPin, LifeBuoy } from 'lucide-react'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { getCookie, setCookie } from 'cookies-next'
+import { useAppSelector } from '@/rtk/hooks'
 
 type Props = {}
 
@@ -33,7 +34,7 @@ export default function page({ }: Props) {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-4">
         {/* Profile Card */}
         <Link
-          href="/profile"
+          href={`/${useAppSelector((s) => s.settings.data?.id)}/profile`}
           className="flex items-center justify-center gap-2 p-6 rounded-xl bg-main text-white font-medium hover:shadow-md transition min-h-[116px]"
         >
           <div className="w-16 h-16 rounded-full overflow-hidden flex-shrink-0">
@@ -49,13 +50,13 @@ export default function page({ }: Props) {
         </Link>
 
         {/* Account Settings */}
-        <Link href="/account-settings" className="flex items-center justify-center gap-2 p-4 rounded-xl bg-gray-100 hover:bg-gray-200 transition font-medium min-h-[116px]">
+        <Link href={`/${useAppSelector((s) => s.settings.data?.id)}/account-settings`} className="flex items-center justify-center gap-2 p-4 rounded-xl bg-gray-100 hover:bg-gray-200 transition font-medium min-h-[116px]">
           <Settings className="w-5 h-5" />
           <span>{t("accountSettings")}</span>
         </Link>
 
         {/* Orders */}
-        <Link href="/orders" className="flex items-center justify-center gap-2 p-4 rounded-xl bg-gray-100 hover:bg-gray-200 transition font-medium min-h-[116px]">
+        <Link href={`/${useAppSelector((s) => s.settings.data?.id)}/orders`} className="flex items-center justify-center gap-2 p-4 rounded-xl bg-gray-100 hover:bg-gray-200 transition font-medium min-h-[116px]">
           <Gift className="w-5 h-5" />
           <span>{t("orders")}</span>
         </Link>
@@ -64,19 +65,19 @@ export default function page({ }: Props) {
       {/* Row 2 */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {/* Addresses */}
-        <Link href="/addresses" className="flex items-center justify-center gap-2 p-4 rounded-xl bg-gray-100 hover:bg-gray-200 transition font-medium min-h-[116px]">
+        <Link href={`/${useAppSelector((s) => s.settings.data?.id)}/addresses`} className="flex items-center justify-center gap-2 p-4 rounded-xl bg-gray-100 hover:bg-gray-200 transition font-medium min-h-[116px]">
           <MapPin className="w-5 h-5" />
           <span>{t("addresses")}</span>
         </Link>
 
         {/* Favorites */}
-        <Link href="/favourite" className="flex items-center justify-center gap-2 p-4 rounded-xl bg-gray-100 hover:bg-gray-200 transition font-medium min-h-[116px]">
+        <Link href={`/${useAppSelector((s) => s.settings.data?.id)}/favourite`} className="flex items-center justify-center gap-2 p-4 rounded-xl bg-gray-100 hover:bg-gray-200 transition font-medium min-h-[116px]">
           <Heart className="w-5 h-5" />
           <span>{t("favorites")}</span>
         </Link>
 
         {/* Customer Support */}
-        <Link href="/support" className="flex items-center justify-center gap-2 p-4 rounded-xl bg-gray-100 hover:bg-gray-200 transition font-medium min-h-[116px]">
+        <Link href={`/${useAppSelector((s) => s.settings.data?.id)}/support`} className="flex items-center justify-center gap-2 p-4 rounded-xl bg-gray-100 hover:bg-gray-200 transition font-medium min-h-[116px]">
           <LifeBuoy className="w-5 h-5" />
           <span>{t("support")}</span>
         </Link>

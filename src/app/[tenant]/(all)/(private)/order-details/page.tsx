@@ -320,7 +320,7 @@ export default function OrderDetailsPage() {
               {order.orderProducts.map((item) => (
                 <Link
                   key={item.id}
-                  href={`/product-details/${item.product.id}`}
+                  href={`/${useAppSelector((s) => s.settings.data?.id)}/product-details/${item.product.id}`}
                   className="p-4 flex gap-4 hover:bg-gray-50 transition-colors rounded-lg"
                 >
                   {/* Product Image */}

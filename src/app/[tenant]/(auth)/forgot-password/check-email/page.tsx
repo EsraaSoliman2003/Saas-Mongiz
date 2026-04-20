@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Layer_1 } from "@/assets";
+import { useAppSelector } from "@/rtk/hooks";
 
 export default function CheckEmailPage() {
     const t = useTranslations();
@@ -69,7 +70,7 @@ export default function CheckEmailPage() {
 
                     {/* Back */}
                     <Link
-                        href="/forgot-password"
+                        href={`/${useAppSelector((s) => s.settings.data?.id)}/forgot-password`}
                         className="block text-sm text-main hover:underline"
                     >
                         {t("Back")}
@@ -80,7 +81,7 @@ export default function CheckEmailPage() {
                 <p className="text-xs text-white/50 mt-6">
                     {t("Didn't receive the email?")}{" "}
                     <Link
-                        href="/forgot-password/step-1"
+                        href={`/${useAppSelector((s) => s.settings.data?.id)}/forgot-password/step-1`}
                         className="text-main hover:underline"
                     >
                         {t("Try again")}

@@ -32,7 +32,7 @@ export default function SliderDisplayPage() {
       <SectionHeader
         title={t("page_title")}
         buttonText={t("Add")}
-        link={`/admin/slider/add`}
+        link={`/${useAppSelector((s) => s.settings.data?.id)}/admin/slider/add`}
         subtitle={t("subtitle")}
       />
 

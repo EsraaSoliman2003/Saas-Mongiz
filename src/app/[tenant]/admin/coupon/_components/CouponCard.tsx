@@ -74,7 +74,7 @@ const CouponCard: React.FC<Props> = ({ id, code, discount }) => {
 
       {/* Right actions */}
       <div className="flex items-center gap-4">
-        <Link href={`/admin/coupon/${id}`} className="relative w-6 h-6 block">
+        <Link href={`/${useAppSelector((s) => s.settings.data?.id)}/admin/coupon/${id}`} className="relative w-6 h-6 block">
           <Image src={pen} alt="edit" fill sizes="24px" />
         </Link>
 

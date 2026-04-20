@@ -1,5 +1,5 @@
 "use client";
-import { useAppDispatch } from "@/rtk/hooks";
+import { useAppDispatch, useAppSelector } from "@/rtk/hooks";
 import { setTrue } from "@/rtk/slices/openMenu";
 import Link from "next/link";
 import {
@@ -28,17 +28,17 @@ export default function SidebarBottomSwiper({
         {
             name: t("dashboard"),
             icon: <HiHome className="text-xl" />,
-            path: "/admin",
+            path: `/${useAppSelector((s) => s.settings.data?.id)}/admin`,
         },
         {
             name: t("categories"),
             icon: <HiOutlineViewGrid className="text-xl" />,
-            path: `/admin/categories`,
+            path: `/${useAppSelector((s) => s.settings.data?.id)}/admin/categories`,
         },
         {
             name: t("products"),
             icon: <HiOutlineShoppingBag className="text-xl" />,
-            path: `/admin/products`,
+            path: `/${useAppSelector((s) => s.settings.data?.id)}/admin/products`,
         },
         {
             name: t("More"),
@@ -48,8 +48,8 @@ export default function SidebarBottomSwiper({
     ];
 
     const isActive = (itemPath: string) => {
-        if (itemPath === "/admin") {
-            return pathname === "/admin";
+        if (itemPath === `/${useAppSelector((s) => s.settings.data?.id)}/admin`) {
+            return pathname === `/${useAppSelector((s) => s.settings.data?.id)}/admin`;
         }
         return pathname.startsWith(itemPath);
     };

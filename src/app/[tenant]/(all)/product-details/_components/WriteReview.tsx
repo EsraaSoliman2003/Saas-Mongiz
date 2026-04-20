@@ -128,7 +128,7 @@ const WriteReview = ({ productId }: Props) => {
         type="button"
         className="text-main font-semibold underline hover:text-main-(--dark-color) transition-colors"
         onClick={() => {
-          token ? setOpen(true) : push("/login");
+          token ? setOpen(true) : push(`/${useAppSelector((s) => s.settings.data?.id)}/login`);
         }}
       >
         {t("Write a Review")}

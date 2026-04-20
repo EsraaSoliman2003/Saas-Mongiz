@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
-import { useAppDispatch } from "@/rtk/hooks";
+import { useAppDispatch, useAppSelector } from "@/rtk/hooks";
 import { toggleUserFavourite } from "@/rtk/slices/favourite/favouriteSlice";
 import { ProductApi } from "@/rtk/slices/productDetails/productDetailsSlice";
 
@@ -82,7 +82,7 @@ export default function ImagesPart({ product, images }: Props) {
               if (token) {
                 handleToggleFavorite(e);
               } else {
-                router.push("/login");
+                router.push(`/${useAppSelector((s) => s.settings.data?.id)}/login`);
               }
             }}
             className={`p-1 my-2 lg:hidden rounded-full bg-white transition-all duration-300 ${isFav

@@ -45,7 +45,7 @@ const CreateSliderForm = () => {
             ).unwrap();
 
             toast.success(t("Slider created successfully"));
-            router.push("/admin/slider");
+            router.push(`/${useAppSelector((s) => s.settings.data?.id)}/admin/slider`);
         } catch {
             toast.error(t("Failed to create slider"));
         }

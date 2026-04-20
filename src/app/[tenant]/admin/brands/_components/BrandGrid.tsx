@@ -23,7 +23,7 @@ const BrandGrid = () => {
 
   return (
     <>
-      <AdminSectionHeader title={t("Brands")} addHref="/admin/brands/create" />
+      <AdminSectionHeader title={t("Brands")} addHref={`/${useAppSelector((s) => s.settings.data?.id)}/admin/brands/create`} />
 
       <div className="relative">
         <AdminGridLayout isEmpty={!loading && items.length === 0}>

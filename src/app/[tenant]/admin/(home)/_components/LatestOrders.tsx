@@ -66,7 +66,7 @@ const OrderItem = ({ id, status, name, products }: OrderItemProps) => {
   const { bg, text, dot } = statusStyles[mappedStatus];
 
   return (
-    <Link href={`/admin/orders/order-details?id=${id}`} className="group flex items-center justify-between py-4 px-2 rounded-xl hover:bg-gray-50 transition-colors duration-200">
+    <Link href={`/${useAppSelector((s) => s.settings.data?.id)}/admin/orders/order-details?id=${id}`} className="group flex items-center justify-between py-4 px-2 rounded-xl hover:bg-gray-50 transition-colors duration-200">
 
       {/* Left Section */}
       <div className="flex items-center gap-3">
@@ -132,7 +132,7 @@ export default function LatestOrders() {
           </div>
         </div>
 
-        <Link href={"/admin/orders"} className="flex items-center text-sm text-gray-500 cursor-pointer hover:text-[#FF8904] transition-colors group">
+        <Link href={`/${useAppSelector((s) => s.settings.data?.id)}/admin/orders`} className="flex items-center text-sm text-gray-500 cursor-pointer hover:text-[#FF8904] transition-colors group">
           <span>{t("viewAll")}</span>
           {t("dir") === "rtl" ? (
             <ChevronLeft className="w-4 h-4 mr-1 group-hover:-translate-x-1 transition-transform" />

@@ -1,5 +1,6 @@
 "use client";
 
+import { useAppSelector } from "@/rtk/hooks";
 import { setCookie } from "cookies-next";
 import { Globe, Check } from "lucide-react";
 import { useState } from "react";
@@ -18,7 +19,7 @@ const LanguageDropdown = ({ locale }: Props) => {
   ];
 
   const changeLanguage = (code: string) => {
-    setCookie("NEXT_LOCALE", code, { path: "/" });
+    setCookie("NEXT_LOCALE", code, { path: `/${useAppSelector((s) => s.settings.data?.id)}` });
     window.location.reload();
   };
 

@@ -1,5 +1,6 @@
 "use client";
 
+import { useAppSelector } from "@/rtk/hooks";
 import Image from "next/image";
 import Link from "next/link";
 import { FiExternalLink } from "react-icons/fi";
@@ -13,7 +14,7 @@ interface Props {
 const AdminCategoryCard: React.FC<Props> = ({ id, name, image }) => {
 
   return (
-    <Link href={`/admin/categories/${id}`} className="block">
+    <Link href={`/${useAppSelector((s) => s.settings.data?.id)}/admin/categories/${id}`} className="block">
       <div className="rounded-lg bg-white box-shadow hover:shadow-md transition cursor-pointer">
         <div className="p-1.5">
           <div className="relative w-full aspect-[4/3] rounded overflow-hidden bg-gray-50">

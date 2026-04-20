@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { X, Mail, MailCheck, AlertTriangle } from "lucide-react";
 import MainButton from "../MainButton/MainButton";
-import { useAppDispatch } from "@/rtk/hooks";
+import { useAppDispatch, useAppSelector } from "@/rtk/hooks";
 import { recoverAccount } from "@/rtk/slices/auth/authSlice";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
@@ -157,7 +157,7 @@ export default function RecoveryAccountModal({
 
               {/* Done button */}
               <Link
-                href={"/login"}
+                href={`/${useAppSelector((s) => s.settings.data?.id)}/login`}
                 className="w-full h-11 flex items-center justify-center rounded-lg bg-main text-white hover:bg-(--main-color) transition"
               >
                 {t("GoToLogin") || "Go to Login"}

@@ -6,7 +6,7 @@ import { pen } from "@/assets";
 import { FiTrash2 } from "react-icons/fi";
 import { toast } from "sonner";
 
-import { useAppDispatch } from "@/rtk/hooks";
+import { useAppDispatch, useAppSelector } from "@/rtk/hooks";
 import { deleteBrand } from "@/rtk/slices/brands/brandsSlice";
 import { useTranslations } from "next-intl";
 
@@ -65,7 +65,7 @@ const AdminBrandCard: React.FC<Props> = ({ id, name }) => {
       </div>
 
       <div className="flex items-center gap-6">
-        <Link href={`/admin/brands/${id}/edit`} className="relative w-5 h-5 block">
+        <Link href={`/${useAppSelector((s) => s.settings.data?.id)}/admin/brands/${id}/edit`} className="relative w-5 h-5 block">
           <Image src={pen} alt="edit" fill sizes="20px" />
         </Link>
 

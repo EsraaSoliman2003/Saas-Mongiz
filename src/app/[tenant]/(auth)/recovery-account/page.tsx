@@ -56,7 +56,7 @@ export default function Page() {
         toast(data?.message || "تم إستعادة الحساب بنجاح");
 
         setTimeout(() => {
-          router.push("/login");
+          router.push(`/${useAppSelector((s) => s.settings.data?.id)}/login`);
         }, 2000);
       } else {
         toast(data?.message || "Something went wrong");
@@ -72,7 +72,7 @@ export default function Page() {
     <div className="min-h-screen flex items-center justify-center px-4 py-20">
       <div className="w-full max-w-md bg-white/10 backdrop-blur-2xl rounded-2xl px-8 py-10 text-white shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
         {/* Logo */}
-        <Link href="/" className="flex justify-center mb-6">
+        <Link href={`/${useAppSelector((s) => s.settings.data?.id)}`} className="flex justify-center mb-6">
           {
             logoLoading ? (
               <div className="w-52 h-20 bg-gray-700 animate-pulse rounded"></div>
@@ -119,7 +119,7 @@ export default function Page() {
         {/* Extra help */}
         <p className="text-center text-xs text-white/50 mt-6">
           {t("Need help?")}{" "}
-          <Link href="/contact" className="text-(--main-color) hover:underline">
+          <Link href={`/${useAppSelector((s) => s.settings.data?.id)}/contact`} className="text-(--main-color) hover:underline">
             {t("Contact support")}
           </Link>
         </p>

@@ -66,7 +66,7 @@ export default function Address() {
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-xl sm:text-xl font-semibold text-gray-800 flex-1">{t("MyAddress")}</h2>
         <Link
-          href={"/add-address"}
+          href={`/${useAppSelector((s) => s.settings.data?.id)}/add-address`}
           className="px-10 py-3 rounded-lg text-sm font-medium transition-all duration-300 
           bg-main text-white hover:bg-main/90 hover:shadow-lg active:scale-95 
           cursor-pointer text-center shadow-sm"

@@ -67,7 +67,7 @@ export default function EditSliderPage() {
             ).unwrap();
 
             toast.success(t("Slider updated successfully"));
-            router.push("/admin/slider");
+            router.push(`/${useAppSelector((s) => s.settings.data?.id)}/admin/slider`);
         } catch {
             toast.error(t("Failed to update slider"));
         }

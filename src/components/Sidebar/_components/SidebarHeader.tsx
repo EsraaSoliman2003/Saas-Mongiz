@@ -25,7 +25,7 @@ export default function SidebarHeader() {
 
       {/* Logo + Link to Home */}
       <Link
-        href="/"
+        href={`/${useAppSelector((s) => s.settings.data?.id)}`}
         onClick={() => dispatch(setFalse())}
         className="flex items-center justify-center"
       >

@@ -78,7 +78,7 @@ const ProductCard: React.FC<Props> = ({
   };
 
   return (
-    <Link href={`/admin/reviews/${id}`} className="rounded-xl bg-white box-shadow">
+    <Link href={`/${useAppSelector((s) => s.settings.data?.id)}/admin/reviews/${id}`} className="rounded-xl bg-white box-shadow">
       {/* Image */}
       <div className="px-2 pt-2">
         <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden bg-gray-50">
@@ -108,7 +108,7 @@ const ProductCard: React.FC<Props> = ({
         <div className="flex items-center gap-6">
           {/* Edit */}
           {/* <Link
-            href={`/seller/products/addproduct?id=${id}`}
+            href={`/${useAppSelector((s) => s.settings.data?.id)}/seller/products/addproduct?id=${id}`}
             className="relative w-5 h-5 block"
             aria-label={t("edit")}
           >

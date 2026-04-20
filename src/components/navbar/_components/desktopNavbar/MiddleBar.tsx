@@ -22,7 +22,7 @@ const MiddleBar = ({ locale }: { locale: string }) => {
   return (
     <div className="flex items-center justify-between gap-4 py-3">
       {/* Logo */}
-      <Link href={"/"} className="flex items-center shrink-0">
+      <Link href={`/${useAppSelector((s) => s.settings.data?.id)}`} className="flex items-center shrink-0">
         {loading ? (
           <div className="w-44 h-12 bg-gray-200 animate-pulse rounded"></div>
         ) : (
@@ -55,7 +55,7 @@ const MiddleBar = ({ locale }: { locale: string }) => {
 
         {/* Cart */}
         <Link
-          href={"/cart"}
+          href={`/${useAppSelector((s) => s.settings.data?.id)}/cart`}
           className="relative cursor-pointer hover:opacity-80 transition text-gray-600 hover:text-(--main-color)"
         >
           <ShoppingCart size={22} />

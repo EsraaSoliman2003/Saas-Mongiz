@@ -4,6 +4,7 @@ import Link from "next/link";
 import { CheckCircle2, XCircle, Clock3, type LucideIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { OrderApi } from "@/rtk/slices/orders/ordersSlice";
+import { useAppSelector } from "@/rtk/hooks";
 
 type OrderStatus = 1 | 2 | 3;
 
@@ -70,7 +71,7 @@ export default function OrderItem({ order }: { order: OrderApi }) {
 
   return (
     <Link
-      href={`/admin/orders/order-details?id=${id}`}
+      href={`/${useAppSelector((s) => s.settings.data?.id)}/admin/orders/order-details?id=${id}`}
       className="rounded-2xl block cursor-pointer hover:shadow-md transition-shadow"
     >
       <div className="bg-white rounded-2xl p-4 transition duration-300 relative">

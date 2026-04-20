@@ -52,7 +52,7 @@ export default function CategoriesDrawer() {
                                 {data?.map((cat) => (
                                     <Link
                                         key={cat.name}
-                                        href={`/products?category=${cat.id}`}
+                                        href={`/${useAppSelector((s) => s.settings.data?.id)}/products?category=${cat.id}`}
                                         onClick={() => setOpen(false)}
                                         className="px-4 py-2.5 cursor-pointer flex justify-between items-center transition-all duration-200 hover:bg-(--main-color)/10 group"
                                     >

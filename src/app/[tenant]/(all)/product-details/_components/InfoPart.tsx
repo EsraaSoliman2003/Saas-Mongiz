@@ -138,7 +138,7 @@ export default function InfoPart({ product }: InfoPartProps) {
               if (token) {
                 handleToggleFavorite(e)
               } else {
-                router.push("/login")
+                router.push(`/${useAppSelector((s) => s.settings.data?.id)}/login`)
               }
             }}
             className={`p-3 hidden lg:inline-block rounded-full transition-all duration-300 ${isFav

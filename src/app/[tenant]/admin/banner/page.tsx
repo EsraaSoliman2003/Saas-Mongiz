@@ -31,7 +31,7 @@ const HomePage = () => {
         title={t("Banners")}
         subtitle={t("ManageBanners")}
         buttonText={t("EditBanners")}
-        link="/admin/banner/edit"
+        link={`/${useAppSelector((s) => s.settings.data?.id)}/admin/banner/edit`}
       />
 
       <div className="relative w-full max-w-6xl">

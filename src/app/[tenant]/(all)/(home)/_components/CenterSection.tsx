@@ -64,7 +64,7 @@ export default function CenterSection() {
             >
               {sliderData.map((slide, index) => (
                 <SwiperSlide key={slide.id} className="hover:bg-black/10">
-                  <Link href={slide.link || "/"} className="block h-full relative">
+                  <Link href={slide.link || `/${useAppSelector((s) => s.settings.data?.id)}`} className="block h-full relative">
                     <div className="relative w-full h-full overflow-hidden rounded-lg cursor-pointer">
                       <Image
                         src={slide.images[0] || "/placeholder.png"}

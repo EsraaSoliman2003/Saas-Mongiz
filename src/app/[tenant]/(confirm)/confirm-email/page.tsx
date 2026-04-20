@@ -77,14 +77,14 @@ export default function ConfirmEmailPage() {
           try {
             const userObj = JSON.parse(userCookie as string);
             userObj.emailConfirmed = true;
-            setCookie("user", JSON.stringify(userObj), { path: "/" });
+            setCookie("user", JSON.stringify(userObj), { path: `/${useAppSelector((s) => s.settings.data?.id)}` });
           } catch (err) {
             console.error("Failed to update user cookie:", err);
           }
         }
 
         setTimeout(() => {
-          router.push("/");
+          router.push(`/${useAppSelector((s) => s.settings.data?.id)}`);
         }, 3000);
       } else {
         const data = await res.json();
@@ -102,7 +102,7 @@ export default function ConfirmEmailPage() {
       <div className="w-full max-w-md bg-white/10 backdrop-blur-2xl rounded-2xl px-8 py-10 text-white shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
 
         {/* Logo */}
-        <Link href="/" className="flex justify-center mb-6">
+        <Link href={`/${useAppSelector((s) => s.settings.data?.id)}`} className="flex justify-center mb-6">
           {logoLoading ? (
             <div className="w-52 h-20 bg-gray-700 animate-pulse rounded"></div>
           ) : (
@@ -143,7 +143,7 @@ export default function ConfirmEmailPage() {
         {/* Login link */}
         <p className="text-center text-sm text-white/70 mt-6">
           {t("Already verified?")}{" "}
-          <Link href="/login" className="text-(--main-color) hover:underline">
+          <Link href={`/${useAppSelector((s) => s.settings.data?.id)}/login`} className="text-(--main-color) hover:underline">
             {t("Go to Login")}
           </Link>
         </p>

@@ -7,6 +7,7 @@ import MainButton from "@/components/MainButton/MainButton";
 import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
+import { useAppSelector } from "@/rtk/hooks";
 
 export default function Page() {
   const t = useTranslations();
@@ -72,7 +73,7 @@ export default function Page() {
         toast.success(data?.message || t("Password reset successfully"));
 
         setTimeout(() => {
-          router.push("/login");
+          router.push(`/${useAppSelector((s) => s.settings.data?.id)}/login`);
         }, 2000);
       } else {
         toast.error(data?.title || t("Something went wrong"));

@@ -1,7 +1,7 @@
 "use client";
 
 import { GoogleLogin, CredentialResponse } from "@react-oauth/google";
-import { useAppDispatch } from "@/rtk/hooks";
+import { useAppDispatch, useAppSelector } from "@/rtk/hooks";
 import { googleSignUp } from "@/rtk/slices/auth/authSlice";
 import { toast } from "sonner";
 import { setCookie } from "cookies-next";
@@ -32,17 +32,17 @@ export default function GoogleSignUpButton({ phoneNumber, countryCode }: Props) 
         if (googleSignUp.fulfilled.match(resultAction)) {
             const { user, token, roles } = resultAction.payload;
 
-            setCookie("token", token, { maxAge: 60 * 60 * 24 * 7, path: "/" });
-            setCookie("user", JSON.stringify(user), { maxAge: 60 * 60 * 24 * 7, path: "/" });
-            setCookie("roles", JSON.stringify(roles), { maxAge: 60 * 60 * 24 * 7, path: "/" });
+            setCookie("token", token, { maxAge: 60 * 60 * 24 * 7, path: `/${useAppSelector((s) => s.settings.data?.id)}` });
+            setCookie("user", JSON.stringify(user), { maxAge: 60 * 60 * 24 * 7, path: `/${useAppSelector((s) => s.settings.data?.id)}` });
+            setCookie("roles", JSON.stringify(roles), { maxAge: 60 * 60 * 24 * 7, path: `/${useAppSelector((s) => s.settings.data?.id)}` });
 
             setToken(token);
 
             toast.success(t("AccountCreated"));
 
-            if (roles.includes("ADMIN")) router.replace("/admin");
-            else if (roles.includes("SELLER")) router.replace("/seller");
-            else router.replace("/");
+            if (roles.includes("ADMIN")) router.replace(`/${useAppSelector((s) => s.settings.data?.id)}/admin`);
+            else if (roles.includes("SELLER")) router.replace(`/${useAppSelector((s) => s.settings.data?.id)}/seller`);
+            else router.replace(`/${useAppSelector((s) => s.settings.data?.id)}`);
         }
     };
 

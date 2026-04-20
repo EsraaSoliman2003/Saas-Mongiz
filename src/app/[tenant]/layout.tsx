@@ -1,47 +1,68 @@
 "use client";
 
-import { useAppDispatch } from "@/rtk/hooks";
+import { useAppDispatch, useAppSelector } from "@/rtk/hooks";
 import { fetchSettings } from "@/rtk/slices/setting/settingSlice";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
 function applyThemeColors(primary: string, secondary: string) {
-    document.documentElement.style.setProperty("--main-color", primary);
-    document.documentElement.style.setProperty("--dark-color", secondary);
+  document.documentElement.style.setProperty("--main-color", primary);
+  document.documentElement.style.setProperty("--dark-color", secondary);
 }
 
 export default function TenantLayout({
-    children,
+  children,
 }: {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }) {
-    const pathname = usePathname();
-    const dispatch = useAppDispatch();
+  const pathname = usePathname();
+  const dispatch = useAppDispatch();
 
-    const [notFound, setNotFound] = useState(false);
+  const { loading } = useAppSelector((s) => s.settings);
 
-    const firstSegment = pathname.split("/").filter(Boolean)[0];
+  const [notFound, setNotFound] = useState(false);
+  const [ready, setReady] = useState(false);
 
-    useEffect(() => {
-        if (!firstSegment) return;
+  const firstSegment = pathname.split("/").filter(Boolean)[0];
 
-        const load = async () => {
-            try {
-                const res = await dispatch(fetchSettings(Number(firstSegment))).unwrap();
-                if (res) {
-                    applyThemeColors(res.primaryColor, res.secondaryColor);
-                }
-            } catch {
-                setNotFound(true);
-            }
-        };
+  useEffect(() => {
+    if (!firstSegment) return;
 
-        load();
-    }, [dispatch, firstSegment]);
+    const load = async () => {
+      try {
+        const res = await dispatch(
+          fetchSettings(Number(firstSegment))
+        ).unwrap();
 
-    if (notFound) {
-        return <div>Tenant not found</div>;
-    }
+        applyThemeColors(res.primaryColor, res.secondaryColor);
 
-    return <div>{children}</div>;
+        setReady(true);
+      } catch {
+        setNotFound(true);
+      }
+    };
+
+    load();
+  }, [dispatch, firstSegment]);
+
+  // 🔥 LOADING STATE
+  if (loading || !ready) {
+    return (
+      <div className="h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-10 w-10 border-4 border-gray-300 border-t-black"></div>
+      </div>
+    );
+  }
+
+  // ❌ ERROR STATE
+  if (notFound) {
+    return (
+      <div className="h-screen flex items-center justify-center text-red-500 text-xl">
+        Tenant not found
+      </div>
+    );
+  }
+
+  // ✅ SUCCESS
+  return <div>{children}</div>;
 }

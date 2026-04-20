@@ -114,7 +114,7 @@ export default function Page() {
 
             {/* Button */}
             <Link
-              href="/faq"
+              href={`/${useAppSelector((s) => s.settings.data?.id)}/faq`}
               className="w-full bg-white text-dark py-3 rounded-full text-center font-medium transition-all duration-300 hover:opacity-80"
             >
               {t("faqButton")}

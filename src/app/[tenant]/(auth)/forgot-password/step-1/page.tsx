@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { useAppSelector } from "@/rtk/hooks";
 
 export default function Page() {
   const base = (process.env.NEXT_PUBLIC_API_URL || "").replace(/\/$/, "");
@@ -39,7 +40,7 @@ export default function Page() {
       if (res.ok) {
         toast.success(data?.message || t("Email sent successfully"));
 
-        router.push(`/forgot-password/check-email`);
+        router.push(`/${useAppSelector((s) => s.settings.data?.id)}/forgot-password/check-email`);
       } else {
         toast.error(data?.title || t("Something went wrong"));
       }

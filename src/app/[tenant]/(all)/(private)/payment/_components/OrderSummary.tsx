@@ -58,7 +58,7 @@ export default function OrderSummary() {
                         orderProducts: formattedProducts,
                     })
                 ).unwrap();
-                router.push("/orders");
+                router.push(`/${useAppSelector((s) => s.settings.data?.id)}/orders`);
                 clear();
                 setAddressInfo(null);
 

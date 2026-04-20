@@ -5,7 +5,7 @@ import Link from "next/link";
 import { pen } from "@/assets";
 import { FiTrash2 } from "react-icons/fi";
 import { toast } from "sonner";
-import { useAppDispatch } from "@/rtk/hooks";
+import { useAppDispatch, useAppSelector } from "@/rtk/hooks";
 import { deleteContactInfo } from "@/rtk/slices/contactInfo/contactInfoSlice";
 import { useTranslations } from "next-intl";
 
@@ -63,7 +63,7 @@ const AdminContactInfoCard: React.FC<Props> = ({
       <div className="flex items-center justify-end gap-4 mt-3">
         {/* Edit */}
         <Link
-          href={`/admin/contact-info/${id}/edit`}
+          href={`/${useAppSelector((s) => s.settings.data?.id)}/admin/contact-info/${id}/edit`}
           className="relative w-5 h-5 block"
         >
           <Image src={pen} alt="edit" fill sizes="20px" />

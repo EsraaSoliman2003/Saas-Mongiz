@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { getCookie } from "cookies-next";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import { useAppSelector } from "@/rtk/hooks";
 
 const GOOGLE_CLIENT_ID = "534504469249-6t0bshim5ie4m8kji4hs930vgbm67kcm.apps.googleusercontent.com";
 
@@ -21,11 +22,11 @@ export default function ProtectedAuthLayout({ children }: { children: React.Reac
       const roles = rolesCookie ? JSON.parse(rolesCookie) : [];
 
       if (roles.includes("ADMIN")) {
-        router.replace("/admin");
+        router.replace(`/${useAppSelector((s) => s.settings.data?.id)}/admin`);
       } else if (roles.includes("SELLER")) {
-        router.replace("/seller");
+        router.replace(`/${useAppSelector((s) => s.settings.data?.id)}/seller`);
       } else {
-        router.replace("/");
+        router.replace(`/${useAppSelector((s) => s.settings.data?.id)}/`);
       }
     } else {
       setLoading(false);

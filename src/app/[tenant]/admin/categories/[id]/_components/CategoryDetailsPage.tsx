@@ -58,7 +58,7 @@ const CategoryDetailsPage: React.FC<Props> = ({ categoryId }) => {
                             try {
                                 await dispatch(deleteCategory(Number(categoryId))).unwrap();
                                 toast.success(t("Category deleted successfully"));
-                                router.push("/admin/categories");
+                                router.push(`/${useAppSelector((s) => s.settings.data?.id)}/admin/categories`);
                             } catch (e) {
                                 toast.error(t("Failed to delete category"));
                             } finally {
@@ -122,7 +122,7 @@ const CategoryDetailsPage: React.FC<Props> = ({ categoryId }) => {
                         {/* Icon buttons with consistent styling */}
                         <div className="flex items-center gap-2">
                             <Link
-                                href={`/admin/categories/${categoryId}/edit`}
+                                href={`/${useAppSelector((s) => s.settings.data?.id)}/admin/categories/${categoryId}/edit`}
                                 className="flex items-center justify-center w-10 h-10 rounded-full text-blue-600 hover:bg-blue-50 hover:text-blue-700 transition"
                                 title={t("Edit")}
                             >

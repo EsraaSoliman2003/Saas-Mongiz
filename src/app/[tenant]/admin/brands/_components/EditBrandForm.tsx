@@ -50,7 +50,7 @@ const EditBrandForm = () => {
 
       setName("");
       toast.success(t("success"));
-      router.push("/admin/brands");
+      router.push(`/${useAppSelector((s) => s.settings.data?.id)}/admin/brands`);
 
     } catch (err) {
       toast.error(typeof err === "string" ? err : t("error"));

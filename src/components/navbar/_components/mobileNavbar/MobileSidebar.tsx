@@ -135,7 +135,7 @@ const MobileSidebar = ({ isOpen, onClose, locale }: MobileSidebarProps) => {
                 <div className="space-y-1">
                   {activeCategory.subCategories?.map((sub) => (
                     <Link
-                      href={`/products?category=${sub.categoryId}&subCategory=${sub.id}`}
+                      href={`/${useAppSelector((s) => s.settings.data?.id)}/products?category=${sub.categoryId}&subCategory=${sub.id}`}
                       onClick={onClose}
                       key={sub.id}
                       className={`w-full p-3 text-sm text-dark
@@ -189,7 +189,7 @@ const MobileSidebar = ({ isOpen, onClose, locale }: MobileSidebarProps) => {
                 <button
                   key={lang.code}
                   onClick={() => {
-                    setCookie("NEXT_LOCALE", lang.code, { path: "/" });
+                    setCookie("NEXT_LOCALE", lang.code, { path: `/${useAppSelector((s) => s.settings.data?.id)}` });
                     window.location.reload();
                     onClose();
                   }}

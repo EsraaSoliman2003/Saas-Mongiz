@@ -4,13 +4,14 @@ import React from "react";
 import { motion } from "framer-motion";
 import { MessageCircle } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useAppSelector } from "@/rtk/hooks";
 
 export default function FloatingHelpButton() {
     const t = useTranslations();
 
     return (
         <motion.a
-            href="/contact"
+            href={`/${useAppSelector((s) => s.settings.data?.id)}/contact`}
             initial={{ scale: 0 }}
             animate={{
                 scale: 1,

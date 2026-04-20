@@ -22,7 +22,7 @@ export default function SidebarToggle() {
       "
     >
       {/* Title */}
-      <Link href={"/"}>
+      <Link href={`/${useAppSelector((s) => s.settings.data?.id)}`}>
         {
           loading ? (
             <div className="w-52 h-20 bg-gray-700 animate-pulse rounded"></div>

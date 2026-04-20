@@ -65,7 +65,7 @@ const EditCategoryForm = () => {
       ).unwrap();
 
       toast.success(t("Category updated successfully"));
-      router.push(`/admin/categories/${id}`);
+      router.push(`/${useAppSelector((s) => s.settings.data?.id)}/admin/categories/${id}`);
     } catch {
       toast.error(t("Failed to update category"));
     }

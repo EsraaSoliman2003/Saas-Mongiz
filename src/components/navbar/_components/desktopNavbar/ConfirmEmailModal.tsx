@@ -1,5 +1,6 @@
 "use client"
 import { useAuth } from '@/context/AuthContext';
+import { useAppSelector } from '@/rtk/hooks';
 import { Mail, Send, X } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
@@ -142,7 +143,7 @@ export default function ConfirmEmailModal({ setModalOpen, userEmail, cooldown, l
         {/* Footer */}
         <div className="bg-gray-50 px-6 py-3 border-t border-gray-100 text-center text-xs text-gray-500">
           {t("Need help?")}{" "}
-          <Link href={"/support"} className="text-blue-600 hover:underline">{t("Contact Support")}</Link>
+          <Link href={`/${useAppSelector((s) => s.settings.data?.id)}/support`} className="text-blue-600 hover:underline">{t("Contact Support")}</Link>
         </div>
       </div>
     </div>

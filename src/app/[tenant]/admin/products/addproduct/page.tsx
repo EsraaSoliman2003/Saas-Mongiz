@@ -200,7 +200,7 @@ const AddProductForm: React.FC = () => {
           ).unwrap();
 
           toast(t("productUpdatedSuccessfully"));
-          router.push("/admin/products");
+          router.push(`/${useAppSelector((s) => s.settings.data?.id)}/admin/products`);
 
         } catch (error) {
           console.log(error);
@@ -238,7 +238,7 @@ const AddProductForm: React.FC = () => {
           ).unwrap();
 
           dispatch(resetDraft());
-          router.push("/admin/products");
+          router.push(`/${useAppSelector((s) => s.settings.data?.id)}/admin/products`);
           toast(t("productAddedsuccessfully"));
 
         } catch (error) {

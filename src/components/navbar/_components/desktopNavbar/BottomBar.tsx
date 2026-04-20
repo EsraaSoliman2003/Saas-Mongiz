@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import { useLogout } from "@/hooks/useLogout";
+import { useAppSelector } from "@/rtk/hooks";
 
 type Props = {};
 
@@ -32,14 +33,14 @@ export default function BottomBar({ }: Props) {
 
         <div className="flex gap-2 items-center">
           {/* Links */}
-          <Link href={"/"}>
+          <Link href={`/${useAppSelector((s) => s.settings.data?.id)}`} className="flex items-center gap-2 cursor-pointer py-2 px-3 rounded-lg transition-all duration-300 hover:text-(--main-color)">
             <span className="cursor-pointer py-1 px-2 rounded-lg transition-all duration-300 hover:text-(--main-color) active:scale-95">
               {t("Home")}
             </span>
           </Link>
 
           <div className="relative group">
-            <Link href={"/products"} className="flex items-center gap-2 cursor-pointer py-2 px-3 rounded-lg transition-all duration-300 group-hover:text-(--main-color)">
+            <Link href={`/${useAppSelector((s) => s.settings.data?.id)}/products`} className="flex items-center gap-2 cursor-pointer py-2 px-3 rounded-lg transition-all duration-300 group-hover:text-(--main-color)">
               <span>{t("NewProducts")}</span>
               <span className="bg-linear-to-r from-(--main-color) to-red-500 text-white text-[10px] px-2 py-0.5 rounded-full font-semibold shadow-sm transition-all duration-300 group-hover:scale-110 group-hover:shadow-md">
                 {t("Hot")}
@@ -70,36 +71,36 @@ export default function BottomBar({ }: Props) {
               {/* Dropdown */}
               <div className="absolute right-0 top-full mt-2 w-56 bg-white shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                 <div className="flex flex-col text-sm text-gray-700">
-                  <Link href="/profile" className="px-4 py-2 hover:bg-gray-100">
+                  <Link href={`/${useAppSelector((s) => s.settings.data?.id)}/profile`} className="px-4 py-2 hover:bg-gray-100">
                     {t("Profile")}
                   </Link>
                   {
                     rolesArray.includes("SELLER") && (
-                      <Link href="/seller" className="px-4 py-2 hover:bg-gray-100">
+                      <Link href={`/${useAppSelector((s) => s.settings.data?.id)}/seller`} className="px-4 py-2 hover:bg-gray-100">
                         {t("dashboard")}
                       </Link>
                     )
                   }
                   {
                     rolesArray.includes("ADMIN") && (
-                      <Link href="/admin" className="px-4 py-2 hover:bg-gray-100">
+                      <Link href={`/${useAppSelector((s) => s.settings.data?.id)}/admin`} className="px-4 py-2 hover:bg-gray-100">
                         {t("dashboard")}
                       </Link>
                     )
                   }
-                  <Link href="/account-settings" className="px-4 py-2 hover:bg-gray-100">
+                  <Link href={`/${useAppSelector((s) => s.settings.data?.id)}/account-settings`} className="px-4 py-2 hover:bg-gray-100">
                     {t("accountSettings")}
                   </Link>
-                  <Link href="/orders" className="px-4 py-2 hover:bg-gray-100">
+                  <Link href={`/${useAppSelector((s) => s.settings.data?.id)}/orders`} className="px-4 py-2 hover:bg-gray-100">
                     {t("orders")}
                   </Link>
-                  <Link href="/addresses" className="px-4 py-2 hover:bg-gray-100">
+                  <Link href={`/${useAppSelector((s) => s.settings.data?.id)}/addresses`} className="px-4 py-2 hover:bg-gray-100">
                     {t("addresses")}
                   </Link>
-                  <Link href="/favourite" className="px-4 py-2 hover:bg-gray-100">
+                  <Link href={`/${useAppSelector((s) => s.settings.data?.id)}/favourite`} className="px-4 py-2 hover:bg-gray-100">
                     {t("favorites")}
                   </Link>
-                  <Link href="/support" className="px-4 py-2 hover:bg-gray-100">
+                  <Link href={`/${useAppSelector((s) => s.settings.data?.id)}/support`} className="px-4 py-2 hover:bg-gray-100">
                     {t("support")}
                   </Link>
                   <button
@@ -113,7 +114,7 @@ export default function BottomBar({ }: Props) {
             </div>
           ) : (
             <div className="relative group">
-              <Link href={"/login"}>
+              <Link href={`/${useAppSelector((s) => s.settings.data?.id)}/login`}>
                 <div className="flex items-center gap-2 cursor-pointer py-2 px-3 rounded-lg transition-all duration-300 group-hover:text-(--main-color)">
                   <div className="relative w-5 h-5">
                     <Image
@@ -132,7 +133,7 @@ export default function BottomBar({ }: Props) {
 
           {/* Track Order */}
           <div className="relative group">
-            <Link href={token ? "/orders" : "/login"}>
+            <Link href={token ? `/${useAppSelector((s) => s.settings.data?.id)}/orders` : `/${useAppSelector((s) => s.settings.data?.id)}/login`}>
               <div className="flex items-center gap-2 cursor-pointer py-2 px-3 rounded-lg transition-all duration-300 group-hover:text-(--main-color)">
                 <div className="relative w-5 h-5">
                   <Image

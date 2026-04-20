@@ -45,7 +45,7 @@ const CreateCategoryForm = () => {
       ).unwrap();
 
       toast.success(t("Category created successfully"));
-      router.push("/admin/categories"); // redirect to categories list
+      router.push(`/${useAppSelector((s) => s.settings.data?.id)}/admin/categories`); // redirect to categories list
     } catch {
       toast.error(t("Failed to create category"));
     }
