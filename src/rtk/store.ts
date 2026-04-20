@@ -40,7 +40,8 @@ import currencyValueReducer from "./slices/ui/Currency";
 import inventoryReducer from "./slices/inventory/inventory";
 import logoReducer from "./slices/logo/logoSlice";
 import howItWorkReducer from "./slices/howItWork/howItWork";
-import colorsReducer from "./slices/colors/colorsSlice";
+import settingsReducer from "./slices/setting/settingSlice";
+import tenantReducer from "./slices/ui/tenantSlice";
 
 export const store = configureStore({
   reducer: {
@@ -84,7 +85,8 @@ export const store = configureStore({
     inventory: inventoryReducer,
     logo: logoReducer,
     howItWork: howItWorkReducer,
-    colors: colorsReducer,
+    settings: settingsReducer,
+    tenant: tenantReducer,
   },
 });
 
