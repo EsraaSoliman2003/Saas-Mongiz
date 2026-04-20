@@ -7,7 +7,7 @@ import { useAppSelector } from "@/rtk/hooks";
 
 const Footer = () => {
     const t = useTranslations();
-    const { logo, loading } = useAppSelector((s) => s.logo)
+        const { data, loading } = useAppSelector((s) => s.settings)
 
     return (
         <footer className={`bg-dark text-[#B7B9C6] text-center ${t("dir") === "rtl" ? "md:text-right" : "md:text-left"}`}>
@@ -21,7 +21,7 @@ const Footer = () => {
                                 <div className="w-52 h-20 bg-gray-700 animate-pulse rounded"></div>
                             ) : (
                                 <Image
-                                    src={logo?.logoDarkMode || "/default-logo.png"}
+                                    src={data?.logoDark || "/default-logo.png"}
                                     alt="Mongiz"
                                     width={270}
                                     height={100}

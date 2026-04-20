@@ -24,7 +24,7 @@ export default function ConfirmEmailPage() {
 
   const [loading, setLoading] = useState(false);
 
-  const { logo, loading: logoLoading } = useAppSelector((s) => s.logo);
+  const { data, loading: logoLoading } = useAppSelector((s) => s.settings);
 
   const base64Decode = (value: string) => {
     try {
@@ -107,7 +107,7 @@ export default function ConfirmEmailPage() {
             <div className="w-52 h-20 bg-gray-700 animate-pulse rounded"></div>
           ) : (
             <Image
-              src={logo?.logoDarkMode || "/default-logo.png"}
+              src={data?.logoDark || "/default-logo.png"}
               alt="Logo"
               width={220}
               height={220}

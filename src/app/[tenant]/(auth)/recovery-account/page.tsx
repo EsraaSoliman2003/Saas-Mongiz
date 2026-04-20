@@ -12,7 +12,7 @@ export default function Page() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const t = useTranslations();
-  const { logo, loading: logoLoading } = useAppSelector((s) => s.logo)
+  const { data, loading: logoLoading } = useAppSelector((s) => s.settings)
 
   const base = (process.env.NEXT_PUBLIC_API_URL || "").replace(/\/$/, "");
 
@@ -78,7 +78,7 @@ export default function Page() {
               <div className="w-52 h-20 bg-gray-700 animate-pulse rounded"></div>
             ) : (
               <Image
-                src={logo?.logoDarkMode || "/default-logo.png"}
+                src={data?.logoDark || "/default-logo.png"}
                 alt="Mongiz"
                 width={220}
                 height={220}

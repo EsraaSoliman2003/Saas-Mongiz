@@ -10,7 +10,7 @@ import Image from "next/image";
 const LogoCard = () => {
   const t = useTranslations();
   const dispatch = useAppDispatch();
-  const { logo, loading } = useAppSelector((s) => s.logo);
+      const { data, loading } = useAppSelector((s) => s.settings);
 
   const darkInputRef = useRef<HTMLInputElement>(null);
   const lightInputRef = useRef<HTMLInputElement>(null);
@@ -82,7 +82,7 @@ const LogoCard = () => {
     <div className="flex flex-col gap-8">
       <LogoItem
         title={t("Change Dark Logo")}
-        src={logo?.logoDarkMode}
+        src={data?.logoDark}
         loadingState={darkLoading}
         inputRef={darkInputRef}
         handleClick={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -93,7 +93,7 @@ const LogoCard = () => {
 
       <LogoItem
         title={t("Change Light Logo")}
-        src={logo?.logoLightMode}
+        src={data?.logoLight}
         loadingState={lightLoading}
         inputRef={lightInputRef}
         handleClick={(e: React.ChangeEvent<HTMLInputElement>) =>

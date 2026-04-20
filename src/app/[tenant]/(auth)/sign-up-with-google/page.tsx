@@ -15,7 +15,7 @@ import { useAppSelector } from "@/rtk/hooks";
 
 export default function Page() {
     const t = useTranslations();
-    const { logo, loading } = useAppSelector((s) => s.logo)
+    const { data, loading } = useAppSelector((s) => s.settings)
 
     const { control, watch, formState: { errors } } = useForm<RegisterSchemaType>({
         resolver: zodResolver(getRegisterSchema(t, false)),
@@ -35,7 +35,7 @@ export default function Page() {
                             <div className="w-52 h-20 bg-gray-700 animate-pulse rounded"></div>
                         ) : (
                             <Image
-                                src={logo?.logoDarkMode || "/default-logo.png"}
+                                src={data?.logoDark || "/default-logo.png"}
                                 alt="Mongiz"
                                 width={220}
                                 height={220}

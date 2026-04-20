@@ -44,7 +44,7 @@ const MobileNavbar = ({ locale }: { locale: string }) => {
         return () => document.removeEventListener("mousedown", handler);
     }, []);
 
-    const { logo, loading } = useAppSelector((s) => s.logo)
+        const { data, loading } = useAppSelector((s) => s.settings)
 
     return (
         <>
@@ -68,7 +68,7 @@ const MobileNavbar = ({ locale }: { locale: string }) => {
                         ) : (
                             <div className="relative w-20 h-8">
                                 <Image
-                                    src={logo?.logoDarkMode || "/default-logo.png"}
+                                    src={data?.logoDark || "/default-logo.png"}
                                     alt="logo"
                                     fill
                                     className="object-contain"

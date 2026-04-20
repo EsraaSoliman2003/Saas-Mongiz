@@ -17,7 +17,7 @@ import EmailStatusButton from "./EmailStatusButton";
 const MiddleBar = ({ locale }: { locale: string }) => {
   const { token } = useAuth();
   const { items } = useCart();
-  const { logo, loading } = useAppSelector((s) => s.logo)
+      const { data, loading } = useAppSelector((s) => s.settings)
 
   return (
     <div className="flex items-center justify-between gap-4 py-3">
@@ -28,7 +28,7 @@ const MiddleBar = ({ locale }: { locale: string }) => {
         ) : (
           <div className="relative w-44 h-12">
             <Image
-              src={logo?.logoLightMode || "/default-logo.png"}
+              src={data?.logoLight || "/default-logo.png"}
               alt="Mongiz"
               fill
               sizes="(max-width: 768px) 120px, 176px"

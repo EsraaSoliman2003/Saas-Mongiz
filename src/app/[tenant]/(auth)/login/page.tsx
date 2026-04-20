@@ -20,7 +20,7 @@ export default function Page() {
   } = useLoginForm();
 
   const [showPassword, setShowPassword] = React.useState(false);
-  const { logo, loading: logoLoading } = useAppSelector((s) => s.logo)
+  const { data, loading: logoLoading } = useAppSelector((s) => s.settings)
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-20">
@@ -32,7 +32,7 @@ export default function Page() {
               <div className="w-52 h-20 bg-gray-700 animate-pulse rounded"></div>
             ) : (
               <Image
-                src={logo?.logoDarkMode || "/default-logo.png"}
+                src={data?.logoDark || "/default-logo.png"}
                 alt="Mongiz"
                 width={220}
                 height={220}

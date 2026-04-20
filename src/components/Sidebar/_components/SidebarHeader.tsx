@@ -10,7 +10,7 @@ import Image from "next/image";
 export default function SidebarHeader() {
   const t = useTranslations();
   const dispatch = useAppDispatch();
-  const { logo, loading } = useAppSelector((s) => s.logo)
+  const { data, loading } = useAppSelector((s) => s.settings)
 
   return (
     <div className="flex flex-col items-center justify-center border-b border-gray-700 pb-4 mb-4 relative">
@@ -32,20 +32,20 @@ export default function SidebarHeader() {
         {
           loading ? (
             <div className="w-52 h-20 bg-gray-700 animate-pulse rounded"></div>
-          ) : logo?.logoDarkMode
+          ) : data?.logoDark
             ? (
               <Image
-                src={logo?.logoDarkMode}
+                src={data?.logoDark}
                 alt="Mongiz"
                 width={200}
                 height={100}
-              className="w-52 md:w-45 h-auto object-contain"
+                className="w-52 md:w-45 h-auto object-contain"
                 priority
               />
             )
             : (
-                <div>
-                </div>
+              <div>
+              </div>
             )
         }
 

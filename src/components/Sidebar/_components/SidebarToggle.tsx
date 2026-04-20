@@ -8,7 +8,7 @@ import SafeImage from "@/components/safeImage/SafeImage";
 
 export default function SidebarToggle() {
   const dispatch = useAppDispatch();
-  const { logo, loading } = useAppSelector((s) => s.logo)
+      const { data, loading } = useAppSelector((s) => s.settings)
 
   return (
     <div
@@ -26,10 +26,10 @@ export default function SidebarToggle() {
         {
           loading ? (
             <div className="w-52 h-20 bg-gray-700 animate-pulse rounded"></div>
-          ) : logo?.logoDarkMode
+          ) : data?.logoDark
             ? (
               <SafeImage
-                src={logo?.logoDarkMode}
+                src={data?.logoDark}
                 alt="Mongiz"
                 width={100}
                 height={40}

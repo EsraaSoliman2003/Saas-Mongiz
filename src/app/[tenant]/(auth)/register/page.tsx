@@ -18,7 +18,7 @@ import RecoveryAccountModal from "@/components/recoveryAccountModal/RecoveryAcco
 
 export default function Page() {
   const searchParams = useSearchParams();
-  const { logo, loading: logoLoading } = useAppSelector((s) => s.logo)
+  const { data, loading: logoLoading } = useAppSelector((s) => s.settings)
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [emailForRecovery, setEmailForRecovery] = useState("");
@@ -72,7 +72,7 @@ export default function Page() {
               <div className="w-52 h-20 bg-gray-700 animate-pulse rounded"></div>
             ) : (
               <Image
-                src={logo?.logoDarkMode || "/default-logo.png"}
+                src={data?.logoDark || "/default-logo.png"}
                 alt="Mongiz"
                 width={220}
                 height={220}
