@@ -19,7 +19,7 @@ const UserMenu = () => {
     if (!token) {
         return (
             <Link
-                href="/login"
+                href={`/${tenantId}/login`}
                 className="flex items-center gap-1 cursor-pointer text-gray-600 hover:text-gray-400 transition"
             >
                 <User size={22} />
