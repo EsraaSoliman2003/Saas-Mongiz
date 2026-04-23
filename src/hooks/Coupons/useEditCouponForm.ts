@@ -18,6 +18,7 @@ export const useEditCouponForm = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { loading, currentCoupon } = useAppSelector((state) => state.coupon);
+    const tenantId = useAppSelector((s) => s.settings.data?.id);
 
   const { id } = useParams();
   useEffect(() => {
@@ -77,7 +78,7 @@ export const useEditCouponForm = () => {
     try {
       await dispatch(editCoupon(payload));
       toast.success(t("Coupon updated successfully"));
-      router.push("/admin/coupon");
+      router.push(`/${tenantId}/admin/coupon`);
     } catch (error) {
       toast.error(t("Failed to update coupon"));
     }

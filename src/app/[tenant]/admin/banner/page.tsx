@@ -5,24 +5,27 @@ import { useTranslations } from "next-intl";
 import AdminGridLayout from "@/components/adminGridLayout/AdminGridLayout";
 import AdminBannerCard from "./_components/AdminBannerCard";
 import { useAppDispatch, useAppSelector } from "@/rtk/hooks";
-import AdminSectionHeader from "../_components/AdminSectionHeader";
 import { fetchBanners } from "@/rtk/slices/banner/bannerSlice";
 import LoadingSpinner from "../_components/LoadingSpinner";
 import SectionHeader from "../_components/SectionHeader";
 
 const HomePage = () => {
   const t = useTranslations();
-  const { data, loading } = useAppSelector((s) => s.banner);
-  const banners = data[0];
   const dispatch = useAppDispatch();
+
+  const { data, loading } = useAppSelector((s) => s.banner);
+  const settingsId = useAppSelector((s) => s.settings.data?.id);
+
+  const banners = data?.[0];
+
   useEffect(() => {
-    dispatch(fetchBanners())
+    dispatch(fetchBanners());
   }, [dispatch]);
 
+  const editBannerLink = `/${settingsId}/admin/banner/edit`;
+
   if (loading) {
-    return (
-      <LoadingSpinner />
-    );
+    return <LoadingSpinner />;
   }
 
   return (
@@ -31,7 +34,7 @@ const HomePage = () => {
         title={t("Banners")}
         subtitle={t("ManageBanners")}
         buttonText={t("EditBanners")}
-        link={`/${useAppSelector((s) => s.settings.data?.id)}/admin/banner/edit`}
+        link={editBannerLink}
       />
 
       <div className="relative w-full max-w-6xl">
@@ -49,7 +52,6 @@ const HomePage = () => {
             />
           ))}
         </AdminGridLayout>
-
       </div>
     </section>
   );

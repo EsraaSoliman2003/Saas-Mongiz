@@ -180,7 +180,7 @@ export default function Page() {
                                             className="hover:bg-gray-50 transition-colors duration-150 group text-center"
                                         >
                                             <td className="px-6 py-4 text-sm text-gray-500 font-medium">
-                                                #{index + 1}
+                                                {tenant.id}
                                             </td>
                                             <td className="px-6 py-4">
                                                 <div className="flex items-center gap-2 justify-center">

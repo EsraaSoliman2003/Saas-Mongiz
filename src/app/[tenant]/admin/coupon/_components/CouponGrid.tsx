@@ -14,7 +14,7 @@ const CouponGrid = () => {
         <>
             <AdminSectionHeader
                 title={t("Coupon")}
-                addHref={`/${useAppSelector((s) => s.settings.data?.id)}/admin/coupons/create`}
+                addHref={`/${useAppSelector((s) => s.settings.data?.id)}/admin/coupon/create`}
             />
             <div className="relative">
                 <AdminGridLayout isEmpty={!loading && data != null && data.length === 0}>

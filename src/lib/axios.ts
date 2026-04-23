@@ -48,13 +48,6 @@ instance.interceptors.response.use(
       if (message != "هذا الحساب تم حذفه من النظام ") {
         toast.error(message);
       }
-
-      if (status === 401) {
-        deleteCookie("token");
-        deleteCookie("user");
-        deleteCookie("roles");
-        navigate("/login"); // <-- client-side navigation
-      }
     } else {
       toast.error("An unexpected error occurred. Please try again later.");
     }

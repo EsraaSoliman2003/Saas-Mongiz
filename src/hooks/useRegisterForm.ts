@@ -122,17 +122,17 @@ export const useRegisterForm = (
 
         setCookie("token", token, {
           maxAge: 60 * 60 * 24 * 7,
-          path: "/",
+          path: `/${tenantId}`,
         });
 
         setCookie("user", JSON.stringify(user), {
           maxAge: 60 * 60 * 24 * 7,
-          path: "/",
+          path: `/${tenantId}`,
         });
 
         setCookie("roles", JSON.stringify(roles), {
           maxAge: 60 * 60 * 24 * 7,
-          path: "/",
+          path: `/${tenantId}`,
         });
 
         setToken(token);

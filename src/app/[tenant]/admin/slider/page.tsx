@@ -13,11 +13,20 @@ export default function SliderDisplayPage() {
   const t = useTranslations();
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const { data: sliders, loading } = useAppSelector((state) => state.slider);
+
+  const { data: sliders, loading } = useAppSelector(
+    (state) => state.slider
+  );
+
+  const settingsId = useAppSelector(
+    (state) => state.settings.data?.id
+  );
 
   useEffect(() => {
     dispatch(fetchSlider());
   }, [dispatch]);
+
+  const addSliderLink = `/${settingsId}/admin/slider/add`;
 
   if (loading) {
     return (
@@ -32,22 +41,18 @@ export default function SliderDisplayPage() {
       <SectionHeader
         title={t("page_title")}
         buttonText={t("Add")}
-        link={`/${useAppSelector((s) => s.settings.data?.id)}/admin/slider/add`}
+        link={addSliderLink}
         subtitle={t("subtitle")}
       />
 
-      {/* Sliders Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-        {sliders.length === 0
-          ? (
-            <NoData />
-          )
-          : sliders.map((slider) => (
-            <SliderCard
-              key={slider.id}
-              slider={slider}
-            />
-          ))}
+        {sliders.length === 0 ? (
+          <NoData />
+        ) : (
+          sliders.map((slider) => (
+            <SliderCard key={slider.id} slider={slider} />
+          ))
+        )}
       </div>
     </div>
   );

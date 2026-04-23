@@ -33,15 +33,18 @@ export const useLoginForm = () => {
       if (loginUser.fulfilled.match(resultAction)) {
         const { user, token, roles } = resultAction.payload;
 
-        setCookie("token", token, { maxAge: 60 * 60 * 24 * 7, path: "/" });
+        setCookie("token", token, {
+          maxAge: 60 * 60 * 24 * 7,
+          path: `/${tenantId}`,
+        });
         setToken(token);
         setCookie("user", JSON.stringify(user), {
           maxAge: 60 * 60 * 24 * 7,
-          path: "/",
+          path: `/${tenantId}`,
         });
         setCookie("roles", JSON.stringify(roles), {
           maxAge: 60 * 60 * 24 * 7,
-          path: "/",
+          path: `/${tenantId}`,
         });
 
         toast.success(t("Login successful"), { id: "login-success" });

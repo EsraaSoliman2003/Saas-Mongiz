@@ -1,5 +1,8 @@
 "use client";
-import { createCoupon, CreateCouponPayload } from "@/rtk/slices/coupon/couponSlice";
+import {
+  createCoupon,
+  CreateCouponPayload,
+} from "@/rtk/slices/coupon/couponSlice";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,6 +16,7 @@ export const useCreateCouponForm = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { loading } = useAppSelector((state) => state.coupon);
+  const tenantId = useAppSelector((s) => s.settings.data?.id);
 
   // Zod schema for form validation
   const schema = z.object({
@@ -50,7 +54,7 @@ export const useCreateCouponForm = () => {
     try {
       await dispatch(createCoupon(data));
       toast.success(t("Coupon created successfully"));
-      router.push("/admin/coupon");
+      router.push(`/${tenantId}/admin/coupon`);
     } catch (error) {
       toast.error(t("Failed to create coupon"));
     }
