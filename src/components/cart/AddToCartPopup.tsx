@@ -1,10 +1,10 @@
 "use client";
 
-import { useAppSelector } from "@/rtk/hooks";
 import { CheckCircle, ShoppingBag } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useRef, useEffect } from "react";
+import { useAppSelector } from "@/rtk/hooks";
 
 interface Props {
     open: boolean;
@@ -16,7 +16,8 @@ export default function AddToCartPopup({ open, onClose }: Props) {
     const t = useTranslations();
     const popupRef = useRef<HTMLDivElement>(null);
 
-    // Close when clicking outside
+    const tenantId = useAppSelector((s) => s.settings.data?.id);
+
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (popupRef.current && !popupRef.current.contains(event.target as Node)) {
@@ -46,7 +47,7 @@ export default function AddToCartPopup({ open, onClose }: Props) {
                 <CheckCircle size={48} className="text-green-500 mx-auto mb-4" />
 
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                    {t("addedToCart")} {/* ترجمة المفتاح */}
+                    {t("addedToCart")}
                 </h3>
 
                 <p className="text-gray-500 mb-6">
@@ -54,16 +55,14 @@ export default function AddToCartPopup({ open, onClose }: Props) {
                 </p>
 
                 <div className="flex flex-col gap-3">
-                    {/* Buy Now */}
                     <button
-                        onClick={() => router.push(`/${useAppSelector((s) => s.settings.data?.id)}/cart`)}
+                        onClick={() => router.push(`/${tenantId}/cart`)}
                         className="w-full py-3 rounded-lg bg-main text-white font-medium hover:bg-(--main-color) transition flex items-center justify-center gap-2"
                     >
                         <ShoppingBag size={18} />
                         {t("goToCart")}
                     </button>
 
-                    {/* Continue Shopping */}
                     <button
                         onClick={onClose}
                         className="w-full py-3 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 transition"
