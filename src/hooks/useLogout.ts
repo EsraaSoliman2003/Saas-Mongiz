@@ -2,13 +2,14 @@
 
 import { deleteCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
-import { useAppDispatch } from "@/rtk/hooks";
+import { useAppDispatch, useAppSelector } from "@/rtk/hooks";
 import { logoutUser } from "@/rtk/slices/auth/authSlice";
 import { useAuth } from "@/context/AuthContext";
 
 export const useLogout = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const tenantId = useAppSelector((s) => s.settings.data?.id);
   const { setToken } = useAuth();
 
   const logout = async () => {
@@ -22,7 +23,7 @@ export const useLogout = () => {
       deleteCookie("user");
 
       setToken(null);
-      router.replace("/login");
+      router.replace(`${tenantId}/login`);
     }
   };
 

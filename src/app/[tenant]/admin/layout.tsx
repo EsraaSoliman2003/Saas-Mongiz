@@ -8,13 +8,18 @@ import { getCookie } from "cookies-next";
 import { useAppSelector } from "@/rtk/hooks";
 
 export default function ProtectedAdminLayout({ children }: { children: React.ReactNode }) {
+  const token = useAppSelector((s) => s.auth.token);
+  const tenantId = useAppSelector((s) => s.settings.data?.id);
   const router = useRouter();
-  const { token } = useAuth();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!token) {
-      router.replace(`/${useAppSelector((s) => s.settings.data?.id)}/login`);
+    if (!tenantId) return;
+
+    const tokenCookie = token || (getCookie("token") as string | undefined);
+
+    if (!tokenCookie) {
+      router.replace(`/${tenantId}/login`);
       return;
     }
 
@@ -22,12 +27,12 @@ export default function ProtectedAdminLayout({ children }: { children: React.Rea
     const roles = rolesCookie ? JSON.parse(rolesCookie) : [];
 
     if (!roles.includes("ADMIN")) {
-      router.replace(`/${useAppSelector((s) => s.settings.data?.id)}`);
+      router.replace(`/${tenantId}`);
       return;
     }
 
     setLoading(false);
-  }, [token, router]);
+  }, [token, tenantId, router]);
 
   if (loading) {
     return (

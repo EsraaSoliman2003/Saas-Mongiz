@@ -14,12 +14,23 @@ const UserMenu = () => {
     const logOut = useLogout();
 
     const [open, setOpen] = useState(false);
-
-    // ✅ ALWAYS call hook here (top level)
     const tenantId = useAppSelector((s) => s.settings.data?.id);
 
+    if (!token) {
+        return (
+            <Link
+                href="/login"
+                className="flex items-center gap-1 cursor-pointer text-gray-600 hover:text-gray-400 transition"
+            >
+                <User size={22} />
+            </Link>
+        );
+    }
+
     return (
-        <div className="relative inline-block"
+        // Parent container handles hover for both button and menu
+        <div
+            className="relative inline-block"
             onMouseEnter={() => setOpen(true)}
             onMouseLeave={() => setOpen(false)}
         >
@@ -38,24 +49,25 @@ const UserMenu = () => {
                     </button>
 
                     {open && (
-                        <div className="absolute right-0 w-40 bg-white border rounded shadow-lg z-50 text-sm">
+                        <div
+                            className={`absolute ${t("dir") === "rtl" ? "left-0" : "right-0"
+                                } w-40 bg-white border border-gray-200 rounded shadow-lg z-50 text-center text-sm`}
+                        >
                             <Link
                                 href={`/${tenantId}/favourite`}
-                                className="block px-4 py-2 hover:bg-gray-100"
+                                className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
                             >
                                 {t("Favorite")}
                             </Link>
-
                             <Link
                                 href={`/${tenantId}/profile`}
-                                className="block px-4 py-2 hover:bg-gray-100"
+                                className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
                             >
                                 {t("Profile")}
                             </Link>
-
                             <button
                                 onClick={logOut}
-                                className="w-full flex items-center justify-center px-4 py-2 text-red-700 hover:bg-gray-100"
+                                className="w-full flex items-center justify-center px-4 py-2 gap-2 text-red-700 hover:bg-gray-100"
                             >
                                 <LogOut size={16} />
                                 {t("Logout")}

@@ -16,7 +16,7 @@ export const useLoginForm = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { setToken } = useAuth();
-
+  const tenantId = useAppSelector((s) => s.settings.data?.id);
   const { loading } = useAppSelector((state) => state.auth);
 
   const loginSchema = getLoginSchema(t);
@@ -35,17 +35,23 @@ export const useLoginForm = () => {
 
         setCookie("token", token, { maxAge: 60 * 60 * 24 * 7, path: "/" });
         setToken(token);
-        setCookie("user", JSON.stringify(user), { maxAge: 60 * 60 * 24 * 7, path: "/" });
-        setCookie("roles", JSON.stringify(roles), { maxAge: 60 * 60 * 24 * 7, path: "/" });
+        setCookie("user", JSON.stringify(user), {
+          maxAge: 60 * 60 * 24 * 7,
+          path: "/",
+        });
+        setCookie("roles", JSON.stringify(roles), {
+          maxAge: 60 * 60 * 24 * 7,
+          path: "/",
+        });
 
         toast.success(t("Login successful"), { id: "login-success" });
 
         if (roles.includes("ADMIN")) {
-          router.replace("/admin");
+          router.replace(`${tenantId}/admin`);
         } else if (roles.includes("SELLER")) {
-          router.replace("/seller");
+          router.replace(`${tenantId}/seller`);
         } else {
-          router.replace("/");
+          router.replace(`${tenantId}`);
         }
       } else {
         toast.error(resultAction.payload?.title || t("Invalid credentials"), {

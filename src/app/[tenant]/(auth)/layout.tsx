@@ -12,6 +12,7 @@ const GOOGLE_CLIENT_ID = "534504469249-6t0bshim5ie4m8kji4hs930vgbm67kcm.apps.goo
 export default function ProtectedAuthLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const { token } = useAuth();
+  const tenantId = useAppSelector((s) => s.settings.data?.id);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -22,11 +23,11 @@ export default function ProtectedAuthLayout({ children }: { children: React.Reac
       const roles = rolesCookie ? JSON.parse(rolesCookie) : [];
 
       if (roles.includes("ADMIN")) {
-        router.replace(`/${useAppSelector((s) => s.settings.data?.id)}/admin`);
+        router.replace(`/${tenantId}/admin`);
       } else if (roles.includes("SELLER")) {
-        router.replace(`/${useAppSelector((s) => s.settings.data?.id)}/seller`);
+        router.replace(`/${tenantId}/seller`);
       } else {
-        router.replace(`/${useAppSelector((s) => s.settings.data?.id)}/`);
+        router.replace(`/${tenantId}/`);
       }
     } else {
       setLoading(false);

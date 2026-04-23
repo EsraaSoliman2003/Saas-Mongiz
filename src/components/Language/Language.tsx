@@ -12,6 +12,8 @@ interface Props {
 const LanguageDropdown = ({ locale }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const tenantId = useAppSelector((s) => s.settings.data?.id); // ✅ هنا
+
   const languages = [
     { code: "en", label: "English", flag: "🇺🇸" },
     { code: "ar", label: "العربية", flag: "🇸🇦" },
@@ -19,11 +21,15 @@ const LanguageDropdown = ({ locale }: Props) => {
   ];
 
   const changeLanguage = (code: string) => {
-    setCookie("NEXT_LOCALE", code, { path: `/${useAppSelector((s) => s.settings.data?.id)}` });
+    if (!tenantId) return;
+
+    // setCookie("NEXT_LOCALE", code, { path: `/${tenantId}` });
+    setCookie("NEXT_LOCALE", code, { path: `/` });
     window.location.reload();
   };
 
-  const currentLanguage = languages.find(lang => lang.code === locale) || languages[0];
+  const currentLanguage =
+    languages.find((lang) => lang.code === locale) || languages[0];
 
   return (
     <div className="relative">
@@ -44,14 +50,14 @@ const LanguageDropdown = ({ locale }: Props) => {
           />
           <div className="absolute right-0 top-full mt-2 w-40 bg-white shadow-lg rounded-lg overflow-hidden z-50 border border-gray-100 animate-fadeIn">
             {languages.map(lang => (
-              <button
-                key={lang.code}
-                onClick={() => {
-                  changeLanguage(lang.code);
-                  setIsOpen(false);
-                }}
+            <button
+              key={lang.code}
+              onClick={() => {
+                changeLanguage(lang.code);
+                setIsOpen(false);
+              }}
                 className="w-full px-4 py-2.5 hover:bg-gray-50 transition-colors duration-150 flex items-center justify-between group"
-              >
+            >
                 <div className="flex items-center gap-2">
                   <span className="text-lg">{lang.flag}</span>
                   <span className="text-sm text-gray-700 group-hover:text-green-600">
@@ -61,9 +67,9 @@ const LanguageDropdown = ({ locale }: Props) => {
                 {locale === lang.code && (
                   <Check size={16} className="text-green-600" />
                 )}
-              </button>
-            ))}
-          </div>
+            </button>
+          ))}
+        </div>
         </>
       )}
     </div>

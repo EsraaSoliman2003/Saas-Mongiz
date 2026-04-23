@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "mongiz-single.api.imothmr.com",
+        hostname: "mongiz-saas.api.imothmr.com",
         pathname: "/**",
       },
     ],

@@ -46,10 +46,40 @@ export default function TenantLayout({
   }, [dispatch, firstSegment]);
 
   // 🔥 LOADING STATE
+  // 🔥 LOADING SKELETON STATE
   if (loading) {
     return (
-      <div className="h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-10 w-10 border-4 border-gray-300 border-t-black"></div>
+      <div className="min-h-screen flex flex-col animate-pulse bg-gray-50">
+
+        {/* Navbar Skeleton */}
+        <div className="h-16 bg-white border-b border-gray-100 flex items-center justify-between px-6">
+          <div className="h-4 w-32 bg-gray-200 rounded"></div>
+          <div className="flex gap-3">
+            <div className="h-8 w-8 bg-gray-200 rounded-full"></div>
+            <div className="h-8 w-8 bg-gray-200 rounded-full"></div>
+          </div>
+        </div>
+
+        {/* Page Content Skeleton */}
+        <div className="flex-1 p-6 space-y-4">
+          <div className="h-6 w-1/3 bg-gray-200 rounded"></div>
+          <div className="h-4 w-2/3 bg-gray-200 rounded"></div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+            <div className="h-32 bg-gray-200 rounded-xl"></div>
+            <div className="h-32 bg-gray-200 rounded-xl"></div>
+            <div className="h-32 bg-gray-200 rounded-xl"></div>
+          </div>
+
+          <div className="h-40 bg-gray-200 rounded-xl mt-6"></div>
+        </div>
+
+        {/* Footer Skeleton */}
+        <div className="h-14 bg-white border-t border-gray-100 px-6 flex items-center justify-between">
+          <div className="h-3 w-24 bg-gray-200 rounded"></div>
+          <div className="h-3 w-32 bg-gray-200 rounded"></div>
+        </div>
+
       </div>
     );
   }

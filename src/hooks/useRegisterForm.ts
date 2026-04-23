@@ -37,6 +37,7 @@ export const useRegisterForm = (
   const t = useTranslations();
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const tenantId = useAppSelector((s) => s.settings.data?.id);
   const { setToken } = useAuth();
   const [openRecoveryModal, setOpenRecoveryModal] = useState(false);
 
@@ -139,15 +140,15 @@ export const useRegisterForm = (
         toast.success(t("AccountCreated"));
 
         if (roles.includes("ADMIN")) {
-          router.replace("/admin");
+          router.replace(`${tenantId}/admin`);
         } else if (roles.includes("SELLER")) {
-          router.replace("/seller");
+          router.replace(`${tenantId}/seller`);
         } else {
-          router.replace("/");
+          router.replace(`${tenantId}`);
         }
       } else {
         toast.success(t("SellerRegisteredWaitingApproval"));
-        router.replace("/");
+        router.replace(`${tenantId}`);
       }
     } catch {
       toast.error(t("UnexpectedError"));

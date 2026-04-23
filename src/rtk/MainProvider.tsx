@@ -30,8 +30,10 @@ function CurrencyLoader({ currency }: { currency: string }) {
       dispatch(fetchCurrency());
       dispatch(setCurrency(currency));
 
-      const res = await dispatch(fetchSettings(Number(id))).unwrap();
-      console.log(res)
+      let res
+      if (id) {
+        res = await dispatch(fetchSettings(Number(id))).unwrap();
+      }
 
       if (res) {
         applyThemeColors(res.primaryColor, res.secondaryColor);
