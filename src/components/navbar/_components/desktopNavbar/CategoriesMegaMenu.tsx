@@ -11,15 +11,15 @@ export default function CategoriesDrawer() {
     const [open, setOpen] = useState(false);
     const t = useTranslations();
     const { data, loading } = useAppSelector((s) => s.categoriesMenu);
+    const tenantId = useAppSelector((s) => s.settings.data?.id);
 
     return (
         <div
             className="relative"
-            // The wrapper includes both button and menu to prevent accidental close
             onMouseEnter={() => setOpen(true)}
             onMouseLeave={() => setOpen(false)}
         >
-            {/* Trigger button */}
+            {/* Trigger */}
             <div className="flex items-center gap-2 cursor-pointer select-none px-3 py-2 rounded-lg hover:bg-gray-50 transition-all duration-200 group border border-transparent hover:border-gray-200">
                 <Image
                     src={Menu}
@@ -40,7 +40,7 @@ export default function CategoriesDrawer() {
                 />
             </div>
 
-            {/* Dropdown menu */}
+            {/* Dropdown */}
             {open && !loading && (
                 <div
                     className={`absolute top-[100%] ${t("dir") === "rtl" ? "right-0" : "left-0"
@@ -51,8 +51,8 @@ export default function CategoriesDrawer() {
                             <ul className="space-y-0.5">
                                 {data?.map((cat) => (
                                     <Link
-                                        key={cat.name}
-                                        href={`/${useAppSelector((s) => s.settings.data?.id)}/products?category=${cat.id}`}
+                                        key={cat.id}
+                                        href={`/${tenantId}/products?category=${cat.id}`}
                                         onClick={() => setOpen(false)}
                                         className="px-4 py-2.5 cursor-pointer flex justify-between items-center transition-all duration-200 hover:bg-(--main-color)/10 group"
                                     >
