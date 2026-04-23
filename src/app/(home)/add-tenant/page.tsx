@@ -6,10 +6,10 @@ import { createTenant } from "@/rtk/slices/setting/settingSlice";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
-import { 
-  ArrowLeft, 
-  Upload, 
-  Check, 
+import {
+  ArrowLeft,
+  Upload,
+  Check,
   X,
   Image as ImageIcon,
   Paintbrush,
@@ -48,7 +48,7 @@ export default function Page() {
     type: "dark" | "light"
   ) => {
     const file = e.target.files?.[0] || null;
-    
+
     if (type === "dark") {
       setLogoDark(file);
       if (file) {
@@ -119,7 +119,7 @@ export default function Page() {
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
             <span className="text-sm font-medium">{t("back") || "Back"}</span>
           </button>
-          
+
           <div className="flex items-center gap-3">
             <div className="p-2 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl shadow-lg">
               <Building2 className="w-6 h-6 text-white" />
@@ -178,7 +178,7 @@ export default function Page() {
                     {t("primaryColor") || "Primary Color"}
                   </label>
                   <div className="flex items-center gap-3">
-                    <div 
+                    <div
                       className="w-12 h-12 rounded-xl shadow-md border-2 border-white ring-1 ring-gray-200 transition-all duration-200 hover:scale-105"
                       style={{ backgroundColor: form.primaryColor }}
                     />
@@ -199,7 +199,7 @@ export default function Page() {
                     {t("secondaryColor") || "Secondary Color"}
                   </label>
                   <div className="flex items-center gap-3">
-                    <div 
+                    <div
                       className="w-12 h-12 rounded-xl shadow-md border-2 border-white ring-1 ring-gray-200 transition-all duration-200 hover:scale-105"
                       style={{ backgroundColor: form.secondaryColor }}
                     />
@@ -229,46 +229,65 @@ export default function Page() {
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     {t("darkModeLogo") || "Dark Mode Logo"}
                   </label>
-                  <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-xl hover:border-blue-500 transition-colors duration-200">
-                    <div className="space-y-1 text-center">
-                      {logoDarkPreview ? (
-                        <div className="relative inline-block">
-                          <img
-                            src={logoDarkPreview}
-                            alt={t("darkLogoPreview") || "Dark logo preview"}
-                            className="h-20 w-auto mx-auto object-contain"
-                          />
-                          <button
-                            type="button"
-                            onClick={() => removeFile("dark")}
-                            className="absolute -top-2 -right-2 p-1 bg-red-500 rounded-full text-white hover:bg-red-600 transition-colors"
-                          >
-                            <X className="w-3 h-3" />
-                          </button>
-                        </div>
-                      ) : (
-                        <>
-                          <Upload className="mx-auto h-12 w-12 text-gray-400" />
-                          <div className="flex text-sm text-gray-600">
-                            <label className="relative cursor-pointer rounded-md font-medium text-blue-600 hover:text-blue-500">
-                              <span>{t("uploadFile") || "Upload a file"}</span>
-                              <input
-                                type="file"
-                                accept="image/*"
-                                onChange={(e) => handleFileChange(e, "dark")}
-                                className="sr-only"
-                              />
-                            </label>
-                            <p className="pl-1">{t("orDragDrop") || "or drag and drop"}</p>
-                          </div>
-                          <p className="text-xs text-gray-500">
-                            {t("fileTypes") || "PNG, JPG, GIF up to 2MB"}
-                          </p>
-                        </>
+
+                  <div className="relative mt-1">
+                    <div
+                      className={`flex justify-center px-6 pt-5 pb-6 border-2 border-dashed rounded-xl transition-colors duration-200
+      ${!logoDarkPreview ? "hover:border-blue-500 cursor-pointer" : "cursor-default bg-gray-50"}
+    `}
+                    >
+
+                      {/* input يظهر بس لو مفيش preview */}
+                      {!logoDarkPreview && (
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={(e) => handleFileChange(e, "dark")}
+                          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                        />
                       )}
+
+                      <div className="space-y-2 text-center">
+                        {logoDarkPreview ? (
+                          <div className="relative inline-block">
+                            <img
+                              src={logoDarkPreview}
+                              alt={t("darkLogoPreview") || "Dark logo preview"}
+                              className="h-20 w-auto mx-auto object-contain"
+                            />
+
+                            {/* delete button */}
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                removeFile("dark");
+                              }}
+                              className="absolute -top-2 -right-2 p-1 bg-red-500 rounded-full text-white hover:bg-red-600 z-20 shadow"
+                            >
+                              <X className="w-3 h-3" />
+                            </button>
+                          </div>
+                        ) : (
+                          <>
+                            <Upload className="mx-auto h-12 w-12 text-gray-400" />
+
+                            <p className="text-sm text-gray-600">
+                              {t("uploadFile") || "Click to upload or drag & drop"}
+                            </p>
+
+                            <p className="text-xs text-gray-500">
+                              {t("fileTypes") || "PNG, JPG, GIF up to 2MB"}
+                            </p>
+                          </>
+                        )}
+                      </div>
                     </div>
                   </div>
-                  <p className="text-xs text-gray-500 mt-1">{t("darkLogoHint") || "Used for light backgrounds"}</p>
+
+                  <p className="text-xs text-gray-500 mt-1">
+                    {t("darkLogoHint") || "Used for light backgrounds"}
+                  </p>
                 </div>
 
                 {/* Logo Light */}
@@ -276,46 +295,65 @@ export default function Page() {
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     {t("lightModeLogo") || "Light Mode Logo"}
                   </label>
-                  <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-xl hover:border-blue-500 transition-colors duration-200">
-                    <div className="space-y-1 text-center">
-                      {logoLightPreview ? (
-                        <div className="relative inline-block">
-                          <img
-                            src={logoLightPreview}
-                            alt={t("lightLogoPreview") || "Light logo preview"}
-                            className="h-20 w-auto mx-auto object-contain"
-                          />
-                          <button
-                            type="button"
-                            onClick={() => removeFile("light")}
-                            className="absolute -top-2 -right-2 p-1 bg-red-500 rounded-full text-white hover:bg-red-600 transition-colors"
-                          >
-                            <X className="w-3 h-3" />
-                          </button>
-                        </div>
-                      ) : (
-                        <>
-                          <Upload className="mx-auto h-12 w-12 text-gray-400" />
-                          <div className="flex text-sm text-gray-600">
-                            <label className="relative cursor-pointer rounded-md font-medium text-blue-600 hover:text-blue-500">
-                              <span>{t("uploadFile") || "Upload a file"}</span>
-                              <input
-                                type="file"
-                                accept="image/*"
-                                onChange={(e) => handleFileChange(e, "light")}
-                                className="sr-only"
-                              />
-                            </label>
-                            <p className="pl-1">{t("orDragDrop") || "or drag and drop"}</p>
-                          </div>
-                          <p className="text-xs text-gray-500">
-                            {t("fileTypes") || "PNG, JPG, GIF up to 2MB"}
-                          </p>
-                        </>
+
+                  <div className="relative mt-1">
+                    <div
+                      className={`flex justify-center px-6 pt-5 pb-6 border-2 border-dashed rounded-xl transition-colors duration-200
+      ${!logoLightPreview ? "hover:border-blue-500 cursor-pointer" : "cursor-default bg-gray-50"}
+    `}
+                    >
+
+                      {/* input يظهر بس لو مفيش preview */}
+                      {!logoLightPreview && (
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={(e) => handleFileChange(e, "light")}
+                          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                        />
                       )}
+
+                      <div className="space-y-2 text-center">
+                        {logoLightPreview ? (
+                          <div className="relative inline-block">
+                            <img
+                              src={logoLightPreview}
+                              alt={t("lightLogoPreview") || "Light logo preview"}
+                              className="h-20 w-auto mx-auto object-contain"
+                            />
+
+                            {/* delete button */}
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                removeFile("light");
+                              }}
+                              className="absolute -top-2 -right-2 p-1 bg-red-500 rounded-full text-white hover:bg-red-600 z-20 shadow"
+                            >
+                              <X className="w-3 h-3" />
+                            </button>
+                          </div>
+                        ) : (
+                          <>
+                            <Upload className="mx-auto h-12 w-12 text-gray-400" />
+
+                            <p className="text-sm text-gray-600">
+                              {t("uploadFile") || "Click to upload or drag & drop"}
+                            </p>
+
+                            <p className="text-xs text-gray-500">
+                              {t("fileTypes") || "PNG, JPG, GIF up to 2MB"}
+                            </p>
+                          </>
+                        )}
+                      </div>
                     </div>
                   </div>
-                  <p className="text-xs text-gray-500 mt-1">{t("lightLogoHint") || "Used for dark backgrounds"}</p>
+
+                  <p className="text-xs text-gray-500 mt-1">
+                    {t("lightLogoHint") || "Used for dark backgrounds"}
+                  </p>
                 </div>
               </div>
             </div>
